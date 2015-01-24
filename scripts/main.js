@@ -3,7 +3,7 @@ function Deck(id){
 	this.table = new freewall(id);
 	this.table.reset({
 		selector: '.card',
-		animate: true,
+		animate: false,
 		cellW: 200,
 		cellH: 'auto',
 		onResize: function() {
@@ -30,5 +30,7 @@ function Deck(id){
 	}
 }
 var routines = new Deck(".routines");
-routines.update();
 routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+routines.update();
