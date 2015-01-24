@@ -10,17 +10,17 @@
         font-family: 'Roboto';
         color: black;
         width: 250px;
-        height: 250px;
-        margin: 50px;
+        margin: 20px 10px;
       }
 
       content[select="h1"]::content * {
-        font-size: 18pt;
+        font-size: 16pt;
       }
 
       #routineInfo {
         height: 100%;
-        margin: 5px 10px;
+        margin: 10px;
+        padding-bottom: 10px;
       }
 
       content[select="ul"]::content * {
@@ -43,16 +43,14 @@
       </core-toolbar>
       <div id="routineInfo"> 
         <p>This routine includes: <content select="ul"></content></p>
-        <div>
-          <content select="img"></content>
-          <core-icon-button icon="favorite"></core-icon-button>
-        </div>
+        <content select="img"></content>
+        <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
       </div>
     </paper-shadow>
   </template>
   <script>
     Polymer({
-      
+
     });
   </script>
 </polymer-element>
