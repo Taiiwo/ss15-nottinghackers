@@ -7,7 +7,7 @@ function Deck(id){
 		cellW: 200,
 		cellH: 'auto',
 		onResize: function() {
-			wall.fitWidth();
+			this.table.fitWidth();
 		}
 	});
 	this.cards = [];
@@ -15,7 +15,7 @@ function Deck(id){
 		this.table.refresh();
 	}
 	this.update();
-	this.add = function(title, desc, img){
+	this.addCard = function(title, desc, img){
 		//create card
 		var card = '\
 		<routine-card class="card">\
@@ -31,6 +31,7 @@ function Deck(id){
 }
 var routines = new Deck(".routines");
 routines.update();
+
 routines.add("test","test","http://i.imgur.com/IUIVk80.jpg");
 routines.add("test","test","http://i.imgur.com/IUIVk80.jpg");
 routines.add("test","test","http://i.imgur.com/IUIVk80.jpg");
