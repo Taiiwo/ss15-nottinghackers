@@ -1,0 +1,6 @@
+{
+  "name": "ss15-nottinghackers",
+  "root": "./",
+  "clean_urls": true,
+  "error_page": "error.html"
+}
