@@ -1,0 +1,31 @@
+html,
+body {
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+core-header-panel {
+  height: 100%;
+}
+
+core-toolbar {
+  background: #03A9F4;
+  color: white;
+  font-family: 'Roboto';
+}
+
+#tabs {
+  width: 100%;
+}
+
+paper-tabs::shadow #selectionBar {
+  background-color: #FF4081;
+}
+
+paper-tabs paper-tab::shadow #ink {
+  color: #FF4081;
+}
