@@ -10,8 +10,7 @@
         font-family: 'Roboto';
         color: black;
         width: 250px;
-        height: 250px;
-        margin: 50px;
+        margin: 20px 10px;
       }
 
       content[select="h1"]::content * {
@@ -20,7 +19,8 @@
 
       #routineInfo {
         height: 100%;
-        margin: 5px 10px;
+        margin: 10px;
+        padding-bottom: 10px;
       }
 
       content[select="ul"]::content * {
@@ -36,11 +36,6 @@
       core-icon-button {
         float: right;
       }
-
-      #test {
-        position: absolute;
-        bottom: 0
-      }
     </style>
     <paper-shadow z="2" id="card">
       <core-toolbar>
@@ -48,15 +43,14 @@
       </core-toolbar>
       <div id="routineInfo"> 
         <p>This routine includes: <content select="ul"></content></p>
-        <div id="test">
-          <content select="img"></content>
-          <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
-        </div>
+        <content select="img"></content>
+        <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
       </div>
     </paper-shadow>
   </template>
   <script>
     Polymer({
+
     });
   </script>
 </polymer-element>
