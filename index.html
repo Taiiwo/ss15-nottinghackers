@@ -8,18 +8,22 @@
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="styles/main.css">
+	  <script src="scripts/freewall.js"></script>
     <link rel="import" href="elements/elements.html">
   </head>
   <body unresolved>
-    <core-header-panel horizontal layout>
+    <core-header-panel>
       <core-toolbar>
         <paper-tabs id="tabs" selected="0" self-end>
           <paper-tab>All Routines</paper-tab>
           <paper-tab>Liked</paper-tab>
         </paper-tabs>
       </core-toolbar>
-      <paper-fab mini icon="add" title="add"></paper-fab>
-      <routine-list></routine-list>
+      <paper-fab icon="add" title="add"></paper-fab>
+
+      <!-- <routine-list></routine-list>-->
+      <div class="routines"></div>
     </core-header-panel>
+	<script src="scripts/main.js"></script>
   </body>
 </html>

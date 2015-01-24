@@ -5,6 +5,11 @@
 <polymer-element name="routine-card">
   <template>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
       #card {
         font-family: 'Roboto';
         color: black;
@@ -25,9 +30,12 @@
         padding-bottom: 10px;
       }
 
-      content[select="ul"]::content * {
-        margin-left: 10px;
-        padding: 0;
+      #excerciseList {
+        margin: 10px 20px 20px;
+      }
+
+      content[select="li"]::content * {
+        padding: 1px;
       }
 
       content[select="img"]::content * {
@@ -38,6 +46,7 @@
 
       core-icon-button {
         float: right;
+        padding: 7px;
       }
     </style>
     <paper-shadow z="2" id="card">
@@ -45,7 +54,10 @@
         <content select="h1"></content>
       </core-toolbar>
       <div id="routineInfo"> 
-        <p>This routine includes: <content select="ul"></content></p>
+        <p>This routine includes:</p>
+        <ul id="excerciseList">
+          <content select="li"></content>
+        </ul>
         <content select="img"></content>
         <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
       </div>
