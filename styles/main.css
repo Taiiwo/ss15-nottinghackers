@@ -1,9 +1,7 @@
 html,
 body {
   height: 100%;
-}
-
-* {
+  
   margin: 0;
   padding: 0;
 }
@@ -19,7 +17,7 @@ core-toolbar {
 }
 
 #tabs {
-  width: 40%;
+  width: 30%;
 }
 
 paper-tabs::shadow #selectionBar {
@@ -30,4 +28,10 @@ paper-tabs paper-tab::shadow #ink {
   color: #03A9F4;
 }
 
-
+paper-fab {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  margin: 30px;
+}

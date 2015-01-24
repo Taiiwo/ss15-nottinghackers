@@ -20,7 +20,7 @@ function Deck(id){
 		var card = '\
 		<routine-card class="card">\
 			<h1>'+ title +'</h1>\
-			<ul>'+ desc +'</ul>\
+			<li>'+ desc +'</li>\
 			<img src="'+ img +'">\
 		</routine-card>';
 		// add card to list of cards

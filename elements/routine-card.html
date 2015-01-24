@@ -1,20 +1,27 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
-<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
 
 <polymer-element name="routine-card">
   <template>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
       #card {
         font-family: 'Roboto';
         color: black;
         width: 250px;
-        margin: 20px 10px;
+      }
+
+      core-toolbar {
+        color: white;
       }
 
       content[select="h1"]::content * {
-        font-size: 16pt;
+        font-size: 14pt;
       }
 
       #routineInfo {
@@ -23,8 +30,12 @@
         padding-bottom: 10px;
       }
 
-      content[select="ul"]::content * {
-        margin-left: 10px;
+      #excerciseList {
+        margin: 10px 20px 20px;
+      }
+
+      content[select="li"]::content * {
+        padding: 1px;
       }
 
       content[select="img"]::content * {
@@ -35,14 +46,18 @@
 
       core-icon-button {
         float: right;
+        padding: 7px;
       }
     </style>
     <paper-shadow z="2" id="card">
-      <core-toolbar>
+      <core-toolbar class="cardHeaderBackground">
         <content select="h1"></content>
       </core-toolbar>
       <div id="routineInfo"> 
-        <p>This routine includes: <content select="ul"></content></p>
+        <p>This routine includes:</p>
+        <ul id="excerciseList">
+          <content select="li"></content>
+        </ul>
         <content select="img"></content>
         <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
       </div>

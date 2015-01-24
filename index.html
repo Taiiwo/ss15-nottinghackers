@@ -7,9 +7,10 @@
     <title>Nottinghackers</title>
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="scripts/freewall.js"></script>
-	<script src="https://cdn.firebase.com/js/client/2.1.1/firebase.js"></script>
+    <script src="scripts/freewall.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.1.1/firebase.js"></script>
     <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/freewall.js"></script>
     <link rel="import" href="elements/elements.html">
   </head>
   <body unresolved>
@@ -20,8 +21,10 @@
           <paper-tab>Liked</paper-tab>
         </paper-tabs>
       </core-toolbar>
+      <paper-fab icon="add" title="add"></paper-fab>
 
-      <div class="routines wall"></div>
+      <!-- <routine-list></routine-list>-->
+      <div class="routines"></div>
     </core-header-panel>
 	<script src="scripts/main.js"></script>
   </body>
