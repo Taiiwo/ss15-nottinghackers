@@ -30,7 +30,12 @@ function Deck(id){
 	}
 }
 var routines = new Deck(".routines");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 routines.update();
+
+routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+
+$('#addButton').click(function() {
+	
+});
