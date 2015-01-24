@@ -22,5 +22,6 @@ routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 
 $('#addButton').click(function() {
-	
+	var dialog = document.querySelector('html /deep/ paper-dialog');
+	dialog.toggle();
 });
