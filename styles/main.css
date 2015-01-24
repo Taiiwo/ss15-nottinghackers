@@ -13,19 +13,23 @@ core-header-panel {
 }
 
 core-toolbar {
-  background: #03A9F4;
+  background: #FF5722;
   color: white;
   font-family: 'Roboto';
 }
 
 #tabs {
-  width: 100%;
+  width: 40%;
 }
 
 paper-tabs::shadow #selectionBar {
-  background-color: #FF4081;
+  background-color: #03A9F4;
 }
 
 paper-tabs paper-tab::shadow #ink {
-  color: #FF4081;
+  color: #03A9F4;
+}
+
+routine-card {
+  float: left;
 }

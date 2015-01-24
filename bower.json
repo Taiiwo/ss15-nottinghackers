@@ -2,10 +2,11 @@
   "name": "ss15-nottinghackers",
   "version": "0.0.0",
   "homepage": "ss15-nottinghackers.divshot.io",
-  "description": "Karaoke application created for the 2015 Static Showdown",
+  "description": "Application created for the 2015 Static Showdown",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5.4",
     "core-elements": "Polymer/core-elements#~0.5.4",
-    "paper-elements": "Polymer/paper-elements#~0.5.4"
+    "paper-elements": "Polymer/paper-elements#~0.5.4",
+    "jquery": "~2.1.3"
   }
 }

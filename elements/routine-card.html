@@ -1,0 +1,58 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+
+<polymer-element name="routine-card">
+  <template>
+    <style>
+      #card {
+        font-family: 'Roboto';
+        color: black;
+        width: 250px;
+        height: 250px;
+        margin: 50px;
+      }
+
+      content[select="h1"]::content * {
+        font-size: 18pt;
+      }
+
+      #routineInfo {
+        height: 100%;
+        margin: 5px 10px;
+      }
+
+      content[select="ul"]::content * {
+        margin-left: 10px;
+      }
+
+      content[select="img"]::content * {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+      }
+
+      core-icon-button {
+        float: right;
+      }
+    </style>
+    <paper-shadow z="2" id="card">
+      <core-toolbar>
+        <content select="h1"></content>
+      </core-toolbar>
+      <div id="routineInfo"> 
+        <p>This routine includes: <content select="ul"></content></p>
+        <div>
+          <content select="img"></content>
+          <core-icon-button icon="favorite"></core-icon-button>
+        </div>
+      </div>
+    </paper-shadow>
+  </template>
+  <script>
+    Polymer({
+      
+    });
+  </script>
+</polymer-element>
