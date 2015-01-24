@@ -15,7 +15,7 @@
       }
 
       content[select="h1"]::content * {
-        font-size: 18pt;
+        font-size: 16pt;
       }
 
       #routineInfo {
@@ -36,6 +36,11 @@
       core-icon-button {
         float: right;
       }
+
+      #test {
+        position: absolute;
+        bottom: 0
+      }
     </style>
     <paper-shadow z="2" id="card">
       <core-toolbar>
@@ -43,16 +48,15 @@
       </core-toolbar>
       <div id="routineInfo"> 
         <p>This routine includes: <content select="ul"></content></p>
-        <div>
+        <div id="test">
           <content select="img"></content>
-          <core-icon-button icon="favorite"></core-icon-button>
+          <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
         </div>
       </div>
     </paper-shadow>
   </template>
   <script>
     Polymer({
-      
     });
   </script>
 </polymer-element>
