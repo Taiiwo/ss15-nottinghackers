@@ -1,6 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
-<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
 
 <polymer-element name="routine-card">
@@ -10,11 +9,14 @@
         font-family: 'Roboto';
         color: black;
         width: 250px;
-        margin: 20px 10px;
+      }
+
+      core-toolbar {
+        color: white;
       }
 
       content[select="h1"]::content * {
-        font-size: 16pt;
+        font-size: 14pt;
       }
 
       #routineInfo {
@@ -25,6 +27,7 @@
 
       content[select="ul"]::content * {
         margin-left: 10px;
+        padding: 0;
       }
 
       content[select="img"]::content * {
@@ -38,7 +41,7 @@
       }
     </style>
     <paper-shadow z="2" id="card">
-      <core-toolbar>
+      <core-toolbar class="cardHeaderBackground">
         <content select="h1"></content>
       </core-toolbar>
       <div id="routineInfo"> 

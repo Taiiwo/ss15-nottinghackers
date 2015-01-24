@@ -11,23 +11,15 @@
     <link rel="import" href="elements/elements.html">
   </head>
   <body unresolved>
-    <core-header-panel>
+    <core-header-panel horizontal layout>
       <core-toolbar>
         <paper-tabs id="tabs" selected="0" self-end>
           <paper-tab>All Routines</paper-tab>
           <paper-tab>Liked</paper-tab>
         </paper-tabs>
       </core-toolbar>
-
-      <routine-card>
-        <h1>James' Routine</h1>
-        <ul>
-          <li>Press ups</li>
-          <li>Sit ups</li>
-          <li>Plank</li>
-        </ul>
-        <img src="profile.jpeg">
-      </routine-card>
+      <paper-fab mini icon="add" title="add"></paper-fab>
+      <routine-list></routine-list>
     </core-header-panel>
   </body>
 </html>
