@@ -19,6 +19,22 @@
       </core-toolbar>
       <video id="mirror"></video>
     </core-header-panel>
-	<script src="scripts/main.js"></script>
+	<script>
+  navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+  var errorCallback = function(e) {
+     console.log('Rejected!', e);
+  };
+
+  var video = document.querySelector('#mirror');
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({
+      audio: false, video: true
+    }, function(stream) {
+      video.src = window.URL.createObjectURL(stream);
+      video.play();
+    }, errorCallback);
+  };
+  </script>
   </body>
 </html>
