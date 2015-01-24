@@ -17,7 +17,7 @@ core-toolbar {
 }
 
 #tabs {
-  width: 30%;
+  width: 300px;
 }
 
 paper-tabs::shadow #selectionBar {
@@ -34,4 +34,13 @@ paper-fab {
   bottom: 0;
   z-index: 1000;
   margin: 20px;
+}
+
+video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -100;
 }
