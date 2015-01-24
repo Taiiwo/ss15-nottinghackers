@@ -14,11 +14,15 @@
         font-family: 'Roboto';
         color: black;
         width: 250px;
+        float:left;
       }
 
       core-toolbar {
         color: white;
+        position: relative;
       }
+
+      polyfill-next-selector { content: 'h1' }
 
       content[select="h1"]::content * {
         font-size: 14pt;
@@ -34,9 +38,13 @@
         margin: 10px 20px 20px;
       }
 
+      polyfill-next-selector { content: 'li' }
+
       content[select="li"]::content * {
         padding: 1px;
       }
+
+      polyfill-next-selector { content: 'img' }
 
       content[select="img"]::content * {
         width: 40px;
@@ -59,7 +67,7 @@
           <content select="li"></content>
         </ul>
         <content select="img"></content>
-        <core-icon-button icon="favorite-outline" on-tap=""></core-icon-button>
+        <core-icon-button icon="favorite-outline"></core-icon-button>
       </div>
     </paper-shadow>
   </template>
