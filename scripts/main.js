@@ -1,7 +1,7 @@
 function Deck(id){
 	this.id = id;
-	this.cards = new freewall(id);
-	this.cards.reset({
+	this.table = new freewall(id);
+	this.table.reset({
 		selector: '.card',
 		animate: true,
 		cellW: 200,
@@ -10,26 +10,23 @@ function Deck(id){
 			wall.fitWidth();
 		}
 	});
-	this.cards.container.find('.card img').load(function() {
-		this.cards.fitWidth();
-	});
-	this.cardList = [];
+	this.cards = [];
 	this.update = function() {
-		this.cards.refresh();
+		this.table.refresh();
 	}
 	this.update();
 	this.add = function(title, desc, img){
 		//create card
 		var card = '\
-		<routine-card>\
+		<routine-card class="card">\
 			<h1>'+ title +'</h1>\
 			<li>'+ desc +'</li>\
 			<img src="'+ img +'">\
 		</routine-card>';
 		// add card to list of cards
-		this.cardList.push(card);
+		this.cards.push(card);
 		// add a card to the deck
-		this.cards.appendBlock(card);
+		this.table.appendBlock(card);
 	}
 }
 var routines = new Deck(".routines");
