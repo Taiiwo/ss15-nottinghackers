@@ -33,3 +33,34 @@ paper-tabs paper-tab::shadow #ink {
 routine-card {
   float: left;
 }
+
+.card {
+	background: white;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+	border-radius: 3px;
+	color: #333;
+	border: none;
+}
+
+.card h3, .card h5 {
+	text-shadow: none;
+}
+
+.wall {
+	margin: 15px;
+	width: 100%;
+}
+.card {
+	width: 221.2px;
+}
+.cardInfo {
+	padding: 15px;
+	color: #333;
+}
+.card img {
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+}
