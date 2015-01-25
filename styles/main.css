@@ -57,11 +57,21 @@ core-header-panel {
   position:absolute;
 }
 
+core-icon-button {
+  padding: 7px;
+}
+
 .cards {
   width: 870px;
   margin: 0 auto;
   display: block;
   margin-top: 120px;
+}
+
+paper-toast {
+  line-height: 50px;
+  font-family: 'Roboto';
+  text-align: center;
 }
 
 html /deep/ .closeLightbox {
@@ -259,5 +269,5 @@ html /deep/ .indigo[checked]::shadow #offRadio {
 #loginButton,
 #logoutButton {
   float: right;
-  margin: 12px 10px;
+  margin: 12px 5px;
 }

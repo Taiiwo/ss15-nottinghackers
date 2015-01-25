@@ -205,12 +205,17 @@ var addRoutine = function(){
 		this.container.empty();
 	}
 	this.toggleDialog = function(){// opens and closes the dialog box
+		if (currentUser.uid()!=false){
 			if (subThis.isOpen){
 				subThis.closeDialog();
 			}
 			else {
 				subThis.openDialog();
 			}
+		}
+		else {
+			document.querySelector('#toast1').show();
+		}
 	}
 	this.routine = [];
 	this.addRoutineElement = function(title, desc, reps, duration){
