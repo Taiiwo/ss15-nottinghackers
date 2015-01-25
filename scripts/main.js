@@ -188,7 +188,7 @@ canvasObj = function(id, pose){// this is a class that makes a stick man
 		);
 	}
 	// init the pose
-	this.moveIntoPose(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
+	this.moveIntoPose(this.dumpCoords());
 
 	this.canvas.on('object:moving', function(e) {
 		var p = e.target;
