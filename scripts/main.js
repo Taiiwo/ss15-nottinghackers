@@ -21,6 +21,7 @@ routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 
+var DB = new Firebase("https://ss15.firebaseio.com/");
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
 	this.button = $('#addButton');
@@ -65,7 +66,7 @@ var addRoutine = function(){
 					selectable: false
 				});
 			}
-			
+
 			head = this.makeLine(head);
 			body = this.makeLine(body);
 			armL = this.makeLine(armL);
@@ -76,14 +77,14 @@ var addRoutine = function(){
 			legL2 = this.makeLine(legL2);
 			legR = this.makeLine(legR);
 			legR2 = this.makeLine(legR2);
-			
-				
+
+
 			this.canvas.add(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
-			
+
 			var headCircle = this.makeCircle(head.get('x1'), head.get('y1'), null, head);
 			headCircle.radius = 30;
 			headCircle.fill = 'white';
-			
+
 			this.canvas.add(
 				headCircle,
 				this.makeCircle(head.get('x2'), head.get('y2'), head, body, armL, armR),
@@ -97,7 +98,7 @@ var addRoutine = function(){
 				this.makeCircle(armR.get('x2'), armR.get('y2'), armR, armR2),
 				this.makeCircle(armR2.get('x2'), armR2.get('y2'), armR2)
 			);
-			
+
 			this.canvas.on('object:moving', function(e) {
 				var p = e.target;
 				p.line1 && p.line1.set({ 'x2': p.left, 'y2': p.top });
@@ -170,7 +171,7 @@ var addRoutine = function(){
 					]
 				};
 			}
-			
+
 		}
 		// init the input
 		this.poseInput = new this.canvasObj("poseInput",
@@ -191,7 +192,7 @@ var addRoutine = function(){
 		this.dialog.close();
 		// update the property
 		this.isOpen = false;
-		// clear the dialog 
+		// clear the dialog
 		this.container.empty();
 	}
 	this.toggleDialog = function(){// opens and closes the dialog box
@@ -229,13 +230,28 @@ var addRoutine = function(){
 		*/
 	}
 	this.uploadRoutine = function(title){
-		    var DB = new Firebase("https://ss15.firebaseio.com/");
 			DB.push({
 				"title": title,
 				"routine": this.routine
 			});
 	}
 }
+
+
+
+var userData;
+function checkForLogin(){
+	DB.authWithOAuthPopup("google", function(error, authData){
+		if(error){
+			return false;
+		}
+		else{
+			userData=authData;
+			return true
+		}
+	})
+}
+
 // init the add routine button
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
