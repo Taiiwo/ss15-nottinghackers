@@ -263,12 +263,13 @@ var addRoutine = function(){
 	}
 	this.uploadRoutine = function(title, colour){
 			// maybe we should calc the total routine time here?
+			//check to see if logged in;
 			if (currentUser.uid()==false){
 				//cancel uploading of routine
 				return;
 			}
 			DB.push({
-				"uid": currentUser.uid(),
+				"user_id": currentUser.uid(),
 				"title": title,
 				"accentColour":colour,
 				"likes": 0,
@@ -314,7 +315,11 @@ var user=function(){
 	this.data={};
 };
 user.prototype.login=function(){
-	userDB.authWithOAuthPopup("google", this.completeLogin);
+	userDB.tempUserStorage=this
+	userDB.authWithOAuthPopup("google", function(error,authData){
+		userDB.tempUserStorage.completeLogin(error,authData);
+		userDB.tempUserStorage=null;
+	});
 }
 user.prototype.completeLogin=function(error, authData){
 	if(error){
@@ -331,7 +336,13 @@ user.prototype.logout=function(){
 
 }
 user.prototype.uid=function(){
-	return this.uid;
+	if (typeof(this.data.uid) != 'undefined') {
+		return this.data.uid;
+  }
+	return false;
+}
+user.prototype.name=function(){
+	return this.data.uid;
 }
 currentUser=new user();
 $("#loginButton").click(function(){
