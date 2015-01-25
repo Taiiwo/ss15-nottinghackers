@@ -25,8 +25,6 @@ function Deck(id){
 
 var routines = new Deck(".cards");
 
-
-
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
 	this.button = $('#addButton');
@@ -39,7 +37,7 @@ var addRoutine = function(){
 		// update property so we know the state of the box
 		this.isOpen = true;
 		// put a canvas inside the box
-		this.container.append('<canvas id="poseInput" width="350" height="350"></canvas>');
+		this.container.append('<canvas id="poseInput" width="350" height="350" style="border: solid 1px #333; border-radius: 10px;"></canvas>');
 		// make a canvas with a stick man inside
 		this.canvasObj = function(id, pose){// this is a class that makes a stick man
 			this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
