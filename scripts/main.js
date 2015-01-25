@@ -17,9 +17,37 @@ function Deck(id){
 		this.table.append(card);
 	}
 }
-var routines = new Deck("core-header-panel");
+var routines = new Deck(".cards");
 
-var DB = new Firebase("https://ss15.firebaseio.com/");
+$('.logo').click(function() {
+	runRoutine();
+})
+
+// get user webcam input
+var runRoutine = function(){
+  	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+  	var errorCallback = function(e) {
+     	console.log('Rejected!', e);
+  	};
+
+  	var runBox = document.querySelector('#runRoutine')
+  	var video = document.querySelector('#mirror');
+  	if (navigator.getUserMedia) {
+    	navigator.getUserMedia({
+      		audio: false, video: true
+    	}, function(stream) {
+      		video.src = window.URL.createObjectURL(stream);
+      		runBox.open();
+    	}, errorCallback);
+  	};
+
+  	// play video when lightbox is loaded
+  	runBox.addEventListener("core-overlay-open-completed", function() {
+  		video.play();
+  	}, false)
+};
+
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
 	this.button = $('#addButton');
@@ -237,6 +265,7 @@ var addRoutine = function(){
 			});
 	}
 }
+//LOGIN AND AUTHENTICATION
 // connect to DB
 var DB = new Firebase("https://ss15.firebaseio.com/");
 // populate the homepage
