@@ -2,10 +2,15 @@ function Deck(id){
 	this.id = id;
 	this.table = $(this.id);
 	this.cards = [];
-	this.addCard = function(title, desc, img, duration){
+	this.addCard = function(title, desc, img, duration, colourIndex){
+		var colours = [	"#f44336","#f44336","#9c27b0","#3f51b5",// red,		pink,	purple,	indigo
+						"#2196f3","#03a9f4","#00bcd4","#4caf50",// blue,	lBlue,	cyan,	green
+						"#cddc39","#ffeb3b","#ff9800","#795548",// gold,	yellow, orange, brown
+						"#ff5722","#ffc107","#8bc34a","#cddc39"];//dOrange, amber,	lGreen, lime
+		var colour = colours[colourIndex - 1];
 		//create card
 		var card = '\
-		<fitlab-card>\
+		<fitlab-card colour="'+ colour +'">\
 			<h1>'+ title +'</h1>\
 			'+ desc +'\
 			<img src="'+ img +'">\
@@ -294,10 +299,10 @@ DB.on("value", function(snapshot) {
 				list += "<li>" + routineElement.title + "</li>\n";
 			}
 			// calculate total routine time
-			totalTime += routineElement.duration;
+			totalTime += routineElement.duration * routineElement.reps;
 		}
 		// add card to main page
-		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60)// replace image with profile picture
+		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour)// replace image with profile picture
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
