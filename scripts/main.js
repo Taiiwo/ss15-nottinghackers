@@ -283,13 +283,46 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 		}
 		// add card to main page
 		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour,keys[i])// replace image with profile picture
-		$('fitlab-card#' + keys[i] + ">core-toolbar#cardHeader").click(function() {
+		$('fitlab-card#' + keys[i]).click(function() {
 			runRoutine(datum);
 		})
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
 });
+
+var runRoutine = function(data){
+  	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+	var hasVideo = true;
+  	var errorCallback = function(e) {
+		video.remove();
+     	console.log('Rejected!', e);
+		hasVideo = false;
+  	};
+	
+  	var runBox = document.querySelector('#runRoutine');
+	var container = $('#runRoutine');
+  	var video = $('#mirror');
+  	if (navigator.getUserMedia) {
+    	navigator.getUserMedia({
+      		audio: false, video: true
+    	}, function(stream) {
+      		video.src = window.URL.createObjectURL(stream);
+    	}, errorCallback);
+	};
+	container.append(
+		$('<h1>').text(data.title)
+	);
+	runBox.open();
+  	// play video when lightbox is loaded
+  	runBox.addEventListener("core-overlay-open-completed", function() {
+		if (hasVideo){
+			video.play();
+		}
+  	}, false)
+};
+
 
 // connect to DB
 var userDB = new Firebase("https://ss15.firebaseio.com");
