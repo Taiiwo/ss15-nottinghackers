@@ -30,7 +30,150 @@ $('.enterButton').click(function() {
 })
 
 var routines = new Deck(".cards");
+var canvasObj = function(id, pose){// this is a class that makes a stick man
+	this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
+	var thisSubThis = this;
+	fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+	this.makeCircle = function(left, top, line1, line2, line3, line4) {
+		var c = new fabric.Circle({
+			left: left,
+			top: top,
+			strokeWidth: 1,
+			radius: 12,
+			fill: '#fff',
+			stroke: '#666'
+		});
+		c.hasControls = c.hasBorders = false;
 
+		c.line1 = line1;
+		c.line2 = line2;
+		c.line3 = line3;
+		c.line4 = line4;
+
+		return c;
+	}
+	this.makeLine = function(coords) {
+		return new fabric.Line(coords, {
+			fill: 'white',
+			stroke: 'black',
+			strokeWidth: 10,
+			selectable: false
+		});
+	}
+
+	
+
+	var input = this;
+	//function that moves the stickman into a predefined pose
+	this.moveIntoPose = function(newPose){
+		input.canvas.clear();
+		head = this.makeLine(newPose['head']);
+		body = this.makeLine(newPose['body']);
+		armL = this.makeLine(newPose['armL']);
+		armL2 = this.makeLine(newPose['armL2']);
+		armR = this.makeLine(newPose['armR']);
+		armR2 = this.makeLine(newPose['armR2']);
+		legL = this.makeLine(newPose['legL']);
+		legL2 = this.makeLine(newPose['legL2']);
+		legR = this.makeLine(newPose['legR']);
+		legR2 = this.makeLine(newPose['legR2']);
+		input.canvas.add(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
+
+		var headCircle = input.makeCircle(head.get('x1'), head.get('y1'), null, head);
+		headCircle.radius = 30;
+		headCircle.fill = 'white';
+
+		input.canvas.add(
+			headCircle,
+			input.makeCircle(head.get('x2'), head.get('y2'), head, body, armL, armR),
+			input.makeCircle(body.get('x2'), body.get('y2'), body, legR, legL),
+			input.makeCircle(legR.get('x2'), legR.get('y2'), legR, legR2),
+			input.makeCircle(legR2.get('x2'), legR2.get('y2'), legR2),
+			input.makeCircle(legL.get('x2'), legL.get('y2'), legL, legL2),
+			input.makeCircle(legL2.get('x2'), legL2.get('y2'), legL2),
+			input.makeCircle(armL.get('x2'), armL.get('y2'), armL, armL2),
+			input.makeCircle(armL2.get('x2'), armL2.get('y2'), armL2),
+			input.makeCircle(armR.get('x2'), armR.get('y2'), armR, armR2),
+			input.makeCircle(armR2.get('x2'), armR2.get('y2'), armR2)
+		);
+	}
+	// init the pose
+	this.moveIntoPose(pose);
+
+	this.canvas.on('object:moving', function(e) {
+		var p = e.target;
+		p.line1 && p.line1.set({ 'x2': p.left, 'y2': p.top });
+		p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
+		p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
+		p.line4 && p.line4.set({ 'x1': p.left, 'y1': p.top });
+		thisSubThis.canvas.renderAll();
+	});
+	this.dumpCoords = function(){
+		return {
+			"head":[
+				head.get('x1'),
+				head.get('y1'),
+				head.get('x2'),
+				head.get('y2')
+			],
+			"body":[
+				body.get('x1'),
+				body.get('y1'),
+				body.get('x2'),
+				body.get('y2')
+			],
+			"armL":[
+				armL.get('x1'),
+				armL.get('y1'),
+				armL.get('x2'),
+				armL.get('y2')
+			],
+			"armL2":[
+				armL2.get('x1'),
+				armL2.get('y1'),
+				armL2.get('x2'),
+				armL2.get('y2')
+			],
+			"armR":[
+				armR.get('x1'),
+				armR.get('y1'),
+				armR.get('x2'),
+				armR.get('y2')
+			],
+			"armR2":[
+				armR2.get('x1'),
+				armR2.get('y1'),
+				armR2.get('x2'),
+				armR2.get('y2')
+			],
+			"legL":[
+				legL.get('x1'),
+				legL.get('y1'),
+				legL.get('x2'),
+				legL.get('y2')
+			],
+			"legL2":[
+				legL2.get('x1'),
+				legL2.get('y1'),
+				legL2.get('x2'),
+				legL2.get('y2')
+			],
+			"legR":[
+				legR.get('x1'),
+				legR.get('y1'),
+				legR.get('x2'),
+				legR.get('y2')
+			],
+			"legR2":[
+				legR2.get('x1'),
+				legR2.get('y1'),
+				legR2.get('x2'),
+				legR2.get('y2')
+			]
+		};
+	}
+
+}
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ #addRoutine');
 	this.button = $('#addButton');
@@ -50,7 +193,7 @@ var addRoutine = function(){
 			"head":	[ 175, 60 , 175, 100 ],
 			"body":	[ 175, 100, 175, 180 ],
 			"armL":	[ 175, 100, 125, 125 ],
-			"armL2":[ 125, 125, 100, 180 ],
+			"armL2":[ 125, 125, 100 , 180 ],
 			"armR":	[ 175, 100, 225, 125 ],
 			"armR2":[ 225, 125, 250, 180 ],
 			"legL":	[ 175, 180, 125, 220 ],
@@ -136,162 +279,20 @@ var addRoutine = function(){
 		*/
 	}
 	this.uploadRoutine = function(title, colour){
-		// maybe we should calc the total routine time here?
-		//check to see if logged in;
-		if (currentUser.uid()==false){
-			//cancel uploading of routine
-			return;
-		}
-		DB.push({
-			"user_id": currentUser.uid(),
-			"title": title,
-			"accentColour":colour,
-			"likes": 0,
-			"routine": this.routine
-		});
+			// maybe we should calc the total routine time here?
+			//check to see if logged in;
+			if (currentUser.uid()==false){
+				//cancel uploading of routine
+				return;
+			}
+			DB.push({
+				"user_id": currentUser.uid(),
+				"title": title,
+				"accentColour":colour,
+				"likes": 0,
+				"routine": this.routine
+			});
 	}
-}
-canvasObj = function(id, pose){// this is a class that makes a stick man
-	this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
-	var thisSubThis = this;
-	fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
-	this.makeCircle = function(left, top, line1, line2, line3, line4) {
-		var c = new fabric.Circle({
-			left: left,
-			top: top,
-			strokeWidth: 1,
-			radius: 12,
-			fill: '#fff',
-			stroke: '#666'
-		});
-		c.hasControls = c.hasBorders = false;
-
-		c.line1 = line1;
-		c.line2 = line2;
-		c.line3 = line3;
-		c.line4 = line4;
-
-		return c;
-	}
-	this.makeLine = function(coords) {
-		return new fabric.Line(coords, {
-			fill: 'white',
-			stroke: 'black',
-			strokeWidth: 10,
-			selectable: false
-		});
-	}
-
-	head = this.makeLine(pose['head']);
-	body = this.makeLine(pose['body']);
-	armL = this.makeLine(pose['armL']);
-	armL2 = this.makeLine(pose['armL2']);
-	armR = this.makeLine(pose['armR']);
-	armR2 = this.makeLine(pose['armR2']);
-	legL = this.makeLine(pose['legL']);
-	legL2 = this.makeLine(pose['legL2']);
-	legR = this.makeLine(pose['legR']);
-	legR2 = this.makeLine(pose['legR2']);
-
-	var input = this;
-	//function that moves the stickman into a predefined pose
-	this.moveIntoPose = function(pose){
-		input.canvas.add(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
-
-		var headCircle = input.makeCircle(head.get('x1'), head.get('y1'), null, head);
-		headCircle.radius = 30;
-		headCircle.fill = 'white';
-
-		input.canvas.add(
-			headCircle,
-			input.makeCircle(head.get('x2'), head.get('y2'), head, body, armL, armR),
-			input.makeCircle(body.get('x2'), body.get('y2'), body, legR, legL),
-			input.makeCircle(legR.get('x2'), legR.get('y2'), legR, legR2),
-			input.makeCircle(legR2.get('x2'), legR2.get('y2'), legR2),
-			input.makeCircle(legL.get('x2'), legL.get('y2'), legL, legL2),
-			input.makeCircle(legL2.get('x2'), legL2.get('y2'), legL2),
-			input.makeCircle(armL.get('x2'), armL.get('y2'), armL, armL2),
-			input.makeCircle(armL2.get('x2'), armL2.get('y2'), armL2),
-			input.makeCircle(armR.get('x2'), armR.get('y2'), armR, armR2),
-			input.makeCircle(armR2.get('x2'), armR2.get('y2'), armR2)
-		);
-	}
-	// init the pose
-	this.moveIntoPose(this.dumpCoords());
-
-	this.canvas.on('object:moving', function(e) {
-		var p = e.target;
-		p.line1 && p.line1.set({ 'x2': p.left, 'y2': p.top });
-		p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
-		p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
-		p.line4 && p.line4.set({ 'x1': p.left, 'y1': p.top });
-		thisSubThis.canvas.renderAll();
-	});
-	this.dumpCoords = function(){
-		return {
-			"head":[
-				head.get('x1'),
-				head.get('y1'),
-				head.get('x2'),
-				head.get('y2')
-			],
-			"body":[
-				body.get('x1'),
-				body.get('y1'),
-				body.get('x2'),
-				body.get('y2')
-			],
-			"armL":[
-				armL.get('x1'),
-				armL.get('y1'),
-				armL.get('x2'),
-				armL.get('y2')
-			],
-			"armL2":[
-				armL2.get('x1'),
-				armL2.get('y1'),
-				armL2.get('x2'),
-				armL2.get('y2')
-			],
-			"armR":[
-				armR.get('x1'),
-				armR.get('y1'),
-				armR.get('x2'),
-				armR.get('y2')
-			],
-			"armR2":[
-				armR2.get('x1'),
-				armR2.get('y1'),
-				armR2.get('x2'),
-				armR2.get('y2')
-			],
-			"legL":[
-				legL.get('x1'),
-				legL.get('y1'),
-				legL.get('x2'),
-				legL.get('y2')
-			],
-			"legL2":[
-				legL2.get('x1'),
-				legL2.get('y1'),
-				legL2.get('x2'),
-				legL2.get('y2')
-			],
-			"legR":[
-				legR.get('x1'),
-				legR.get('y1'),
-				legR.get('x2'),
-				legR.get('y2')
-			],
-			"legR2":[
-				legR2.get('x1'),
-				legR2.get('y1'),
-				legR2.get('x2'),
-				legR2.get('y2')
-			]
-		};
-	}
-
 }
 //LOGIN AND AUTHENTICATION
 // connect to DB
@@ -369,26 +370,16 @@ var runRoutine = function(data){
 	container.append(
 		$('<h1>').text(data.title)
 	);
-	
+	container.append('<canvas id="posePlayer" width="350" height="350" style="border: solid 1px #333; border-radius: 10px;"></canvas>');
+		// make a canvas with a stick man inside
+		// init the input
+	var posePlayer = new canvasObj("posePlayer", data.routine[0].pose);
 	runBox.open();
   	// play video when lightbox is loaded
   	runBox.addEventListener("core-overlay-open-completed", function() {
 		if (hasVideo){
 			video.play();
 		}
-		container.append('<canvas id="posePlayer" width="350" height="350" style="border: solid 1px #333; border-radius: 10px;"></canvas>');
-		var player = new canvasObj('#posePlayer', {
-			"head":	[ 175, 60 , 175, 100 ],
-			"body":	[ 175, 100, 175, 180 ],
-			"armL":	[ 175, 100, 125, 125 ],
-			"armL2":[ 125, 125, 100, 180 ],
-			"armR":	[ 175, 100, 225, 125 ],
-			"armR2":[ 225, 125, 250, 180 ],
-			"legL":	[ 175, 180, 125, 220 ],
-			"legL2":[ 125, 220, 125, 300 ],
-			"legR":	[ 175, 180, 220, 220 ],
-			"legR2":[ 220, 220, 220, 300 ]
-		});
   	}, false)
 };
 
