@@ -1,9 +1,3 @@
-
-$('#addButton').click(function() {
-	var dialog = document.querySelector('html /deep/ paper-dialog');
-	dialog.toggle();
-});
-
 function Deck(id){
 	this.id = id;
 	this.table = $(this.id);
@@ -39,7 +33,7 @@ var addRoutine = function(){
 		// update property so we know the state of the box
 		this.isOpen = true;
 		// put a canvas inside the box
-		this.container.append('<canvas id="poseInput" width="500" height="500" style="border:1px solid #ccc"></canvas>');
+		this.container.append('<canvas id="poseInput" width="500" height="500"></canvas>');
 		// make a canvas with a stick man inside
 		this.canvasObj = function(id){// this is a class that makes a stick man input
 			this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
@@ -49,7 +43,7 @@ var addRoutine = function(){
 				var c = new fabric.Circle({
 					left: left,
 					top: top,
-					strokeWidth: 5,
+					strokeWidth: 1,
 					radius: 12,
 					fill: '#fff',
 					stroke: '#666'
@@ -66,14 +60,13 @@ var addRoutine = function(){
 
 			this.makeLine = function(coords) {
 				return new fabric.Line(coords, {
-					fill: 'red',
-					stroke: 'red',
+					fill: 'white',
+					stroke: 'black',
 					strokeWidth: 10,
 					selectable: false
 				});
 			}
 			
-
 			this.head = this.makeLine([ 250, 125, 250, 175 ]);
 			this.body = this.makeLine([ 250, 175, 250, 250 ]);
 			this.armL = this.makeLine([ 250, 175, 175, 200 ]);
@@ -90,7 +83,7 @@ var addRoutine = function(){
 			
 			var headCircle = this.makeCircle(this.head.get('x1'), this.head.get('y1'), null, this.head);
 			headCircle.radius = 30;
-			headCircle.fill = 'red';
+			headCircle.fill = 'white';
 			
 			this.canvas.add(
 				headCircle,

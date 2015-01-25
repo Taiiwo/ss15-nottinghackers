@@ -1,8 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
-<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="../bower_components/core-icons/device-icons.html">
 
-<polymer-element name="routine-card">
+<polymer-element name="fitlab-card">
   <template>
     <style>
       * {
@@ -25,6 +25,12 @@
         position: relative;
       }
 
+
+      .time {
+        margin-top: 20px;
+        float: left;
+      }
+
       polyfill-next-selector { content: 'h1' }
 
       content[select="h1"]::content * {
@@ -33,11 +39,11 @@
 
       #routineInfo {
         height: 100%;
-        margin: 10px;
+        margin: 10px 0px 10px 10px;
       }
 
       #excerciseList {
-        margin: 10px 20px 20px;
+        margin: 10px 10px 0px 20px;
       }
 
       polyfill-next-selector { content: 'li' }
@@ -52,11 +58,8 @@
         width: 40px;
         height: 40px;
         border-radius: 100%;
-      }
-
-      core-icon-button {
         float: right;
-        padding: 7px;
+        margin: 15px;
       }
     </style>
     <paper-shadow z="2" id="card">
@@ -68,8 +71,11 @@
         <ul id="excerciseList">
           <content select="li"></content>
         </ul>
-        <content select="img"></content>
-        <core-icon-button icon="favorite-outline"></core-icon-button>
+          <div class="time">
+            <core-icon icon="device:access-time"></core-icon>
+            <content select="span"></content><span> minutes</span>
+          </div>
+          <content select="img"></content>
       </div>
     </paper-shadow>
   </template>
