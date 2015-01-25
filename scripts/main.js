@@ -42,7 +42,9 @@ var addRoutine = function(){
 		this.dialog.open();
 		// update property so we know the state of the box
 		this.isOpen = true;
+		$(this.dialog).find(".closeLightbox").click(this.closeDialog);
 		// put a canvas inside the box
+		this.container.find(".canvas-container").remove();
 		this.container.append('<canvas id="poseInput" width="350" height="350" style="border: solid 1px #333; border-radius: 10px;"></canvas>');
 		// make a canvas with a stick man inside
 		this.canvasObj = function(id, pose){// this is a class that makes a stick man
@@ -241,16 +243,28 @@ var addRoutine = function(){
 						}
 						return false;
 					})
+
+
+					var exerciseForm=$(e.data.dialog).find(".exerciseElements");
+					var title=exerciseForm.find(".exerciseName"),
+							desc=exerciseForm.find(".exerciseDesc textarea"),
+							reps=exerciseForm.find(".exerciseReps"),
+							duration=exerciseForm.find(".exerciseDuration");
+					if(title.val()!==""){
+						e.data.addRoutineElement(title.val(),desc.val(),reps.val(),duration.val());
+					}
+
 					e.data.uploadRoutine(title.val(),addRoutineInstance.tempIndexStorage);
-				})
+					e.data.closeDialog();
+				});
 	}
 	this.closeDialog = function(){
+		this.dialog = document.querySelector('html /deep/ #addRoutine');
+		$(this.canvas).remove();
 		// hide the dialog
 		this.dialog.close();
 		// update the property
 		this.isOpen = false;
-		// clear the dialog
-		this.container.empty();
 	}
 	this.toggleDialog = function(){// opens and closes the dialog box
 		if (currentUser.uid()!=false){
