@@ -31,7 +31,7 @@ var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
 	this.button = $('#addButton');
 	this.isOpen = false;
-	this.container = $('#addRoutine');
+	this.container = $('#addRoutine .exerciseElements');
 	var subThis = this;
 	this.openDialog = function(){
 		// show the dialog
@@ -206,12 +206,12 @@ var addRoutine = function(){
 		this.container.empty();
 	}
 	this.toggleDialog = function(){// opens and closes the dialog box
-		if (subThis.isOpen){
-			subThis.closeDialog();
-		}
-		else {
-			subThis.openDialog();
-		}
+			if (subThis.isOpen){
+				subThis.closeDialog();
+			}
+			else {
+				subThis.openDialog();
+			}
 	}
 	this.routine = [];
 	this.addRoutineElement = function(title, desc, reps, duration){
@@ -394,4 +394,5 @@ function logoutUser(){
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
 addRoutineInstance.button.click(addRoutineInstance.toggleDialog);
+
 var GOOGLE_API_KEY="AIzaSyDHgeb4pr03IKsvYDqQbRk55Mlbl2TTrjc";
