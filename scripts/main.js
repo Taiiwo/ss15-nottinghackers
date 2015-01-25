@@ -13,13 +13,14 @@ function Deck(id){
 		<fitlab-card colour="'+ colour +'">\
 			<h1>'+ title +'</h1>\
 			'+ desc +'\
-			<img src="'+ img +'">\
+			<img class="profilePic" src="'+ img +'">\
 			<span>'+ duration +'</span>\
 		</fitlab-card>';
 		// add card to list of cards
 		this.cards.push(card);
 		// add a card to the deck
 		this.table.append(card);
+		return this.table;
 	}
 }
 
@@ -310,7 +311,18 @@ DB.on("value", function(snapshot) {
 			totalTime += routineElement.duration * routineElement.reps;
 		}
 		// add card to main page
-		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour)// replace image with profile picture
+		var createdNode=routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour);// replace image with profile picture
+		var url="https://www.googleapis.com/plus/v1/people/"+datum.user_id.replace("google:","")+"?fields=image&key=" + GOOGLE_API_KEY
+		$.ajax({
+			dataType: "json",
+			url:url,
+			context:createdNode,
+			success: function(data){
+				if (typeof(data.error)=="undefined"){
+					this.find(".profilePic").attr("src",data.image.url);
+				}
+			}
+		})
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
@@ -374,3 +386,4 @@ function logoutUser(){
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
 addRoutineInstance.button.click(addRoutineInstance.toggleDialog);
+var GOOGLE_API_KEY="AIzaSyDHgeb4pr03IKsvYDqQbRk55Mlbl2TTrjc";
