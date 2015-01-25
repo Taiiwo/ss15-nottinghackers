@@ -22,9 +22,10 @@ function Deck(id){
 		this.table.append(card);
 	}
 }
+
 var routines = new Deck(".cards");
 
-$('.logo').click(function() {
+$('fitlab-card').click(function() {
 	runRoutine();
 })
 
