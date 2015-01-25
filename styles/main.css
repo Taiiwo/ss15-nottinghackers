@@ -13,18 +13,59 @@ core-header-panel {
   height: 100%;
 }
 
-core-toolbar {
+.toolbar {
   background: #9C27B0;
   color: white;
+  width: 100%;
+  height: 65px;
   font-family: 'Roboto';
+  position: fixed;
+  z-index: 10;
 }
 
-.logo {
+.ribbon-logo {
   font-family: 'Roboto';
   text-align: center;
   color: white;
+  padding: 0 0 20px 0;
+  position: absolute;
+  margin: auto;
+  width: 250px;
+  top: 0;
+  right: 0;
+  left: 0;
+  line-height: 50px;
+  font-size: 18pt;
 }
 
-core-icon-button {
-  padding: 7px;
+.ribbon-logo div {
+  background: purple;
+  height: 50px;
+  color:#fff;
+  padding: 0.5em 0;
+  text-align:center;
+  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.ribbon-logo div:after {
+  border-left: 125px solid purple;
+  border-right: 125px solid purple;
+  border-bottom: 20px solid transparent;
+  content: '';
+  bottom:0;
+  left:0;
+  position:absolute;
+}
+
+.cards {
+  width: 870px;
+  margin: 0 auto;
+  display: block;
+  margin-top: 120px;
+}
+
+#addButton,
+#loginButton {
+  float: right;
+  margin: 12px 10px;
 }
