@@ -13,13 +13,14 @@ function Deck(id){
 		<fitlab-card colour="'+ colour +'" id="'+ id +'">\
 			<h1>'+ title +'</h1>\
 			'+ desc +'\
-			<img src="'+ img +'">\
+			<img class="profilePic" src="'+ img +'">\
 			<span>'+ duration +'</span>\
 		</fitlab-card>';
 		// add card to list of cards
 		this.cards.push(card);
 		// add a card to the deck
 		this.table.append(card);
+		return this.table;
 	}
 }
 
@@ -239,12 +240,13 @@ var addRoutine = function(){
 	}
 	this.uploadRoutine = function(title, colour){
 			// maybe we should calc the total routine time here?
+			//check to see if logged in;
 			if (currentUser.uid()==false){
 				//cancel uploading of routine
 				return;
 			}
 			DB.push({
-				"uid": currentUser.uid(),
+				"user_id": currentUser.uid(),
 				"title": title,
 				"accentColour":colour,
 				"likes": 0,
@@ -280,8 +282,18 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 			totalTime += routineElement.duration * routineElement.reps;
 		}
 		// add card to main page
-		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour,keys[i])// replace image with profile picture
-		$('fitlab-card#' + keys[i] + ">core-toolbar#cardHeader").click(function() {
+		var createdNode=routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour);// replace image with profile picture
+		var url="https://www.googleapis.com/plus/v1/people/"+datum.user_id.replace("google:","")+"?fields=image&key=" + GOOGLE_API_KEY
+		$.ajax({
+			dataType: "json",
+			url:url,
+			context:createdNode,
+			success: function(data){
+				if (typeof(data.error)=="undefined"){
+					this.find(".profilePic").attr("src",data.image.url);
+				}
+			}
+			$('fitlab-card#' + keys[i] + ">core-toolbar#cardHeader").click(function() {
 			runRoutine(datum);
 		})
 	}
@@ -295,7 +307,11 @@ var user=function(){
 	this.data={};
 };
 user.prototype.login=function(){
-	userDB.authWithOAuthPopup("google", this.completeLogin);
+	userDB.tempUserStorage=this
+	userDB.authWithOAuthPopup("google", function(error,authData){
+		userDB.tempUserStorage.completeLogin(error,authData);
+		userDB.tempUserStorage=null;
+	});
 }
 user.prototype.completeLogin=function(error, authData){
 	if(error){
@@ -312,7 +328,13 @@ user.prototype.logout=function(){
 
 }
 user.prototype.uid=function(){
-	return this.uid;
+	if (typeof(this.data.uid) != 'undefined') {
+		return this.data.uid;
+  }
+	return false;
+}
+user.prototype.name=function(){
+	return this.data.uid;
 }
 currentUser=new user();
 $("#loginButton").click(function(){
@@ -337,3 +359,4 @@ function logoutUser(){
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
 addRoutineInstance.button.click(addRoutineInstance.toggleDialog);
+var GOOGLE_API_KEY="AIzaSyDHgeb4pr03IKsvYDqQbRk55Mlbl2TTrjc";
