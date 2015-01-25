@@ -64,26 +64,26 @@ var addRoutine = function(){
 				return c;
 			}
 
-			this.makeLine = function(coords, colour) {
+			this.makeLine = function(coords) {
 				return new fabric.Line(coords, {
-					fill: colour,
-					stroke: colour,
+					fill: 'red',
+					stroke: 'red',
 					strokeWidth: 10,
 					selectable: false
 				});
 			}
 			
 
-			this.head = this.makeLine([ 250, 125, 250, 175 ],'red'),
-			this.body = this.makeLine([ 250, 175, 250, 250 ],'red'),
-			this.armL = this.makeLine([ 250, 175, 175, 200 ],'red'),
-			this.armL2 = this.makeLine([ 175, 200, 175, 250 ],'red'),
-			this.armR = this.makeLine([ 250, 175, 325, 200 ],'red');
-			this.armR2 = this.makeLine([ 325, 200, 325, 250 ],'red');
-			this.legL = this.makeLine([ 250, 250, 200, 300],'red'),
-			this.legL2 = this.makeLine([ 200, 300, 200, 375],'red'),
-			this.legR = this.makeLine([ 250, 250, 300, 300],'red'),
-			this.legR2 = this.makeLine([ 300, 300, 300, 375],'red')
+			this.head = this.makeLine([ 250, 125, 250, 175 ]);
+			this.body = this.makeLine([ 250, 175, 250, 250 ]);
+			this.armL = this.makeLine([ 250, 175, 175, 200 ]);
+			this.armL2 = this.makeLine([ 175, 200, 175, 250 ]);
+			this.armR = this.makeLine([ 250, 175, 325, 200 ]);
+			this.armR2 = this.makeLine([ 325, 200, 325, 250 ]);
+			this.legL = this.makeLine([ 250, 250, 200, 300]);
+			this.legL2 = this.makeLine([ 200, 300, 200, 375]);
+			this.legR = this.makeLine([ 250, 250, 300, 300]);
+			this.legR2 = this.makeLine([ 300, 300, 300, 375]);
 				
 
 			this.canvas.add(this.head, this.body, this.armL, this.armL2, this.armR, this.armR2, this.legL, this.legL2, this.legR, this.legR2);
