@@ -301,7 +301,12 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 			}
 		});
 		createdNode.click(datum ,function(e) {
-			runRoutine(e.data);
+			if (currentUser.uid()!=false){
+				runRoutine(e.data);
+			}
+			else {
+				document.querySelector('#toast1').show();
+			}
 		});
 	}
 }, function (errorObject) {
