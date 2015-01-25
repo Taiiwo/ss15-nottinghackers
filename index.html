@@ -38,7 +38,11 @@
           <div class="elements">
             <h4>Please position Stan (on the left) to look like he is carrying out your exercise, for the benefit of people using your routine.</h4>
             <paper-input label="Execise Name"></paper-input>
-            <paper-input label="Description"></paper-input>
+            <paper-input-decorator label="Description">
+              <paper-autogrow-textarea>
+                <textarea maxlength="120"></textarea>
+              </paper-autogrow-textarea>
+            </paper-input-decorator>
             <paper-input class="half" label="Reps"></paper-input>
             <paper-input class="half" label="Duration"></paper-input>
             <paper-button class="nextButton" raised>Next Exercise</paper-button>
