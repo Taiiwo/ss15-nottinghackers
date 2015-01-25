@@ -237,8 +237,7 @@ var addRoutine = function(){
 	}
 }
 
-
-
+//LOGIN AND AUTHENTICATION
 var userData;
 function checkForLogin(){
 	DB.authWithOAuthPopup("google", function(error, authData){
