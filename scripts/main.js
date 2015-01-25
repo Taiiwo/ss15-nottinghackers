@@ -381,13 +381,28 @@ var runRoutine = function(data){
       		video.src = window.URL.createObjectURL(stream);
     	}, errorCallback);
 	};
-	container.append(
-		$('<h1>').text(data.title)
-	);
 	container.append('<canvas id="posePlayer" width="350" height="350" style="border: solid 1px #333; border-radius: 10px;"></canvas>');
 		// make a canvas with a stick man inside
 		// init the input
-	var posePlayer = new canvasObj("posePlayer", data.routine[0].pose);
+	var i = 0;
+	var posePlayer = new canvasObj("posePlayer", data.routine[i].pose);
+	container.append(
+		$('<h1>').text(data.title)
+	).append(
+		$('<paper-button>')
+			.click(function(){
+				i++;
+				if (i < data.routine.length){
+					posePlayer.moveIntoPose(data.routine[i].pose);
+				}
+				else {
+					container.empty();
+					runBox.close();
+				}
+			})
+			.text("next")
+	);
+	
 	runBox.open();
   	// play video when lightbox is loaded
   	runBox.addEventListener("core-overlay-open-completed", function() {
