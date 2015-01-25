@@ -309,6 +309,22 @@ function checkForLogin(){
 		}
 	})
 }
+$("#loginButton").click(checkForLogin);
+function activatePage(){
+	//hide the page disabled overlay
+	$(".disabledTillLogin").removeClass("disabledTillLogin");
+	$("#loginButton").text("logout")
+			.attr("id","logoutButton")
+			.unbind("click")
+			.bind(logoutUser)
+}
+function logoutUser(){
+	$("#loginButton").text("login")
+			.attr("id","loginButton")
+			.unbind("click")
+			.bind(checkForLogin);
+}
+
 // init the add routine button
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
