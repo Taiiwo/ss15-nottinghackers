@@ -122,7 +122,8 @@ html /deep/ .exerciseElements {
   margin: 10px;
 }
 
-html /deep/ .nextButton {
+html /deep/ .nextButton,
+html /deep/ .finishButton {
   margin-top: 15px;
   float: right;
 }
