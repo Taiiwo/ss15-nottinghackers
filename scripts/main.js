@@ -32,7 +32,7 @@ $('.enterButton').click(function() {
 var routines = new Deck(".cards");
 
 var addRoutine = function(){
-	this.dialog = document.querySelector('html /deep/ paper-dialog');
+	this.dialog = document.querySelector('html /deep/ #addRoutine');
 	this.button = $('#addButton');
 	this.isOpen = false;
 	this.container = $('#addRoutine .exerciseElements');
