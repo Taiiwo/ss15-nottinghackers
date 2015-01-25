@@ -255,11 +255,11 @@ var addRoutine = function(){
 		});
 		*/
 	}
-	this.uploadRoutine = function(title){
+	this.uploadRoutine = function(title, colour){
 			// maybe we should calc the total routine time here?
 			DB.push({
 				"title": title,
-				"accentColour":16,
+				"accentColour":colour,
 				"likes": 0,
 				"routine": this.routine
 			});
