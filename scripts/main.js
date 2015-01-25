@@ -2,7 +2,7 @@ function Deck(id){
 	this.id = id;
 	this.table = $(this.id);
 	this.cards = [];
-	this.addCard = function(title, desc, img, duration, colourIndex, id){
+	this.addCard = function(title, desc, img, duration, colourIndex){
 		var colours = [	"#f44336","#e91e63","#9c27b0","#3f51b5",// red,		pink,	purple,	indigo
 						"#2196f3","#03a9f4","#00bcd4","#4caf50",// blue,	lBlue,	cyan,	green
 						"#cddc39","#ffeb3b","#ff9800","#795548",// gold,	yellow, orange, brown
@@ -10,22 +10,22 @@ function Deck(id){
 		var colour = colours[colourIndex - 1];
 		//create card
 		var card = '\
-		<fitlab-card colour="'+ colour +'" id="'+ id +'">\
+		<fitlab-card colour="'+ colour +'">\
 			<h1>'+ title +'</h1>\
 			'+ desc +'\
-			<img src="'+ img +'">\
+			<img class="profilePic" src="'+ img +'">\
 			<span>'+ duration +'</span>\
 		</fitlab-card>';
 		// add card to list of cards
 		this.cards.push(card);
 		// add a card to the deck
-		this.table.append(card);
+		var newElement = $(card);
+		this.table.append(newElement);
+		return newElement;
 	}
 }
 
 var routines = new Deck(".cards");
-
-
 
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
@@ -39,7 +39,7 @@ var addRoutine = function(){
 		// update property so we know the state of the box
 		this.isOpen = true;
 		// put a canvas inside the box
-		this.container.append('<canvas id="poseInput" width="350" height="350"></canvas>');
+		this.container.append('<canvas id="poseInput" width="350" height="350" style="border: solid 1px #333; border-radius: 10px;"></canvas>');
 		// make a canvas with a stick man inside
 		this.canvasObj = function(id, pose){// this is a class that makes a stick man
 			this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
@@ -241,12 +241,13 @@ var addRoutine = function(){
 	}
 	this.uploadRoutine = function(title, colour){
 			// maybe we should calc the total routine time here?
+			//check to see if logged in;
 			if (currentUser.uid()==false){
 				//cancel uploading of routine
 				return;
 			}
 			DB.push({
-				"uid": currentUser.uid(),
+				"user_id": currentUser.uid(),
 				"title": title,
 				"accentColour":colour,
 				"likes": 0,
@@ -282,10 +283,21 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 			totalTime += routineElement.duration * routineElement.reps;
 		}
 		// add card to main page
-		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour,keys[i])// replace image with profile picture
-		$('fitlab-card#' + keys[i]).click(function() {
-			runRoutine(datum);
-		})
+		var createdNode=routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour);// replace image with profile picture
+		var url="https://www.googleapis.com/plus/v1/people/"+datum.user_id.replace("google:","")+"?fields=image&key=" + GOOGLE_API_KEY
+		$.ajax({
+			dataType: "json",
+			url:url,
+			context:createdNode,
+			success: function(data){
+				if (typeof(data.error)=="undefined"){
+					this.find(".profilePic").attr("src",data.image.url);
+				}
+			}
+		});
+		createdNode.click(datum ,function(e) {
+			runRoutine(e.data);
+		});
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
@@ -330,7 +342,11 @@ var user=function(){
 	this.data={};
 };
 user.prototype.login=function(){
-	userDB.authWithOAuthPopup("google", this.completeLogin);
+	userDB.tempUserStorage=this
+	userDB.authWithOAuthPopup("google", function(error,authData){
+		userDB.tempUserStorage.completeLogin(error,authData);
+		userDB.tempUserStorage=null;
+	});
 }
 user.prototype.completeLogin=function(error, authData){
 	if(error){
@@ -347,7 +363,13 @@ user.prototype.logout=function(){
 
 }
 user.prototype.uid=function(){
-	return this.uid;
+	if (typeof(this.data.uid) != 'undefined') {
+		return this.data.uid;
+  }
+	return false;
+}
+user.prototype.name=function(){
+	return this.data.uid;
 }
 currentUser=new user();
 $("#loginButton").click(function(){
@@ -372,3 +394,4 @@ function logoutUser(){
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
 addRoutineInstance.button.click(addRoutineInstance.toggleDialog);
+var GOOGLE_API_KEY="AIzaSyDHgeb4pr03IKsvYDqQbRk55Mlbl2TTrjc";
