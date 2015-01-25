@@ -19,38 +19,39 @@
         <h1>Creating a Routine</h1>
         <paper-fab class="closeLightbox" mini icon="close"></paper-fab>
         <div class="routineElements">
-        <paper-input class="routineName" label="Routine Name"></paper-input>
-        <h4>Please choose an accent colour</h4>
-        <paper-radio-group>
-          <paper-radio-button class="red" label="Red"></paper-radio-button>
-          <paper-radio-button class="pink" label="Pink"></paper-radio-button>
-          <paper-radio-button class="purple" label="Purple"></paper-radio-button>
-          <paper-radio-button class="indigo" label="Indigo"></paper-radio-button>
-          <paper-radio-button class="blue" label="Blue"></paper-radio-button>
-          <paper-radio-button class="cyan" label="Cyan"></paper-radio-button>
-          <paper-radio-button class="teal" label="Teal"></paper-radio-button>
-          <paper-radio-button class="green" label="Green"></paper-radio-button>
-          <paper-radio-button class="amber" label="Amber"></paper-radio-button>
-          <paper-radio-button class="yellow" label="Yellow"></paper-radio-button>
-        </paper-radio-group>
+          <paper-input class="routineName" label="Routine Name"></paper-input>
+          <h4>Please choose an accent colour</h4>
+          <paper-radio-group>
+            <paper-radio-button class="red" label="Red"></paper-radio-button>
+            <paper-radio-button class="pink" label="Pink"></paper-radio-button>
+            <paper-radio-button class="purple" label="Purple"></paper-radio-button>
+            <paper-radio-button class="indigo" label="Indigo"></paper-radio-button>
+            <paper-radio-button class="blue" label="Blue"></paper-radio-button>
+            <paper-radio-button class="cyan" label="Cyan"></paper-radio-button>
+            <paper-radio-button class="teal" label="Teal"></paper-radio-button>
+            <paper-radio-button class="green" label="Green"></paper-radio-button>
+            <paper-radio-button class="amber" label="Amber"></paper-radio-button>
+            <paper-radio-button class="yellow" label="Yellow"></paper-radio-button>
+          </paper-radio-group>
         </div>
         <div class="exerciseElements">
           <div class="elements">
             <h4>Please position Stan (on the left) to look like he is carrying out your exercise, for the benefit of people using your routine.</h4>
-            <paper-input label="Execise Name"></paper-input>
-            <paper-input-decorator label="Description">
+            <paper-input label="Execise Name" class="exerciseName"></paper-input>
+            <paper-input-decorator label="Description" class="exerciseDesc">
               <paper-autogrow-textarea>
                 <textarea maxlength="120"></textarea>
               </paper-autogrow-textarea>
             </paper-input-decorator>
-            <paper-input class="half" label="Reps"></paper-input>
-            <paper-input class="half" label="Duration"></paper-input>
+            <paper-input class="half exerciseReps" label="Reps" type="number"></paper-input>
+            <paper-input class="half exerciseDuration" label="Duration (mins)"></paper-input>
             <paper-button class="nextButton" raised>Next Exercise</paper-button>
+            <paper-button class="finishButton" raised>Finish Routine</paper-button>
           </div>
         </div>
       </paper-dialog>
 
-      <paper-dialog id="runRoutine" backdrop transition="core-transition-top" autoCloseDisabled> 
+      <paper-dialog id="runRoutine" backdrop transition="core-transition-top" autoCloseDisabled>
         <video id="mirror"></video>
       </paper-dialog>
 

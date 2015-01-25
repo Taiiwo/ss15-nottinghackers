@@ -195,6 +195,35 @@ var addRoutine = function(){
 			"legR":	[ 175, 180, 220, 220 ],
 			"legR2":[ 220, 220, 220, 300 ]
 		});
+
+		this.container.find(".nextButton")
+				.click(this,function(e){
+					//On clicking next exercise add to routine
+					var form=$(e.data.dialog).find(".exerciseElements");
+					var title=form.find(".exerciseName"),
+							desc=form.find(".exerciseDesc textarea"),
+							reps=form.find(".exerciseReps"),
+							duration=form.find(".exerciseDuration");
+					e.data.addRoutineElement(title.val(),desc.val(),reps.val(),duration.val());
+
+					//hide, empty, show
+					e.data.tempFieldStorage={
+						title:title,
+						desc:desc,
+						reps:reps,
+						duration:duration
+					}
+					form.animate(
+						{opacity:0},400,function(){
+							var props=addRoutineInstance.tempFieldStorage;
+							props.title.val("");
+							props.desc.val("");
+							props.reps.val("");
+							props.duration.val("");
+							$(this).animate({opacity:1},200);
+						}
+					);
+				});
 	}
 	this.closeDialog = function(){
 		// hide the dialog
