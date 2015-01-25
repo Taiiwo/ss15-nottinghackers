@@ -60,7 +60,7 @@ var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
 	this.button = $('#addButton');
 	this.isOpen = false;
-	this.container = $('paper-dialog');
+	this.container = $('#addRoutine');
 	var subThis = this;
 	this.openDialog = function(){
 		// show the dialog
@@ -263,11 +263,11 @@ var addRoutine = function(){
 		});
 		*/
 	}
-	this.uploadRoutine = function(title){
+	this.uploadRoutine = function(title, colour){
 			// maybe we should calc the total routine time here?
 			DB.push({
 				"title": title,
-				"accentColour":16,
+				"accentColour":colour,
 				"likes": 0,
 				"routine": this.routine
 			});
@@ -275,7 +275,7 @@ var addRoutine = function(){
 }
 //LOGIN AND AUTHENTICATION
 // connect to DB
-var DB = new Firebase("https://ss15.firebaseio.com/");
+var DB = new Firebase("https://ss15.firebaseio.com/routines");
 // populate the homepage
 DB.on("value", function(snapshot) {
 	// this is the data object
@@ -318,18 +318,18 @@ function checkForLogin(){
 }
 $("#loginButton").click(checkForLogin);
 function activatePage(){
-	//hide the page disabled overlay
-	$(".disabledTillLogin").removeClass("disabledTillLogin");
-	$("#loginButton").text("logout")
-			.attr("id","logoutButton")
-			.unbind("click")
-			.bind(logoutUser)
+       //hide the page disabled overlay
+       $(".disabledTillLogin").removeClass("disabledTillLogin");
+       $("#loginButton").text("logout")
+                       .attr("id","logoutButton")
+                       .unbind("click")
+                       .bind(logoutUser)
 }
 function logoutUser(){
-	$("#loginButton").text("login")
-			.attr("id","loginButton")
-			.unbind("click")
-			.bind(checkForLogin);
+       $("#loginButton").text("login")
+                       .attr("id","loginButton")
+                       .unbind("click")
+                       .bind(checkForLogin);
 }
 
 // init the add routine button
