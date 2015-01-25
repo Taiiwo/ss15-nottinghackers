@@ -65,7 +65,8 @@ core-header-panel {
 }
 
 #addButton,
-#loginButton {
+#loginButton,
+#logoutButton {
   float: right;
   margin: 12px 10px;
 }

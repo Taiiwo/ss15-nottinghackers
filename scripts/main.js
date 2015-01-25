@@ -66,9 +66,9 @@ var addRoutine = function(){
 		// update property so we know the state of the box
 		this.isOpen = true;
 		// put a canvas inside the box
-		this.container.append('<canvas id="poseInput" width="500" height="500"></canvas>');
+		this.container.append('<canvas id="poseInput" width="350" height="350"></canvas>');
 		// make a canvas with a stick man inside
-		this.canvasObj = function(id,head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2){// this is a class that makes a stick man
+		this.canvasObj = function(id, pose){// this is a class that makes a stick man
 			this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
 			var thisSubThis = this;
 			fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
@@ -99,37 +99,42 @@ var addRoutine = function(){
 				});
 			}
 
-			head = this.makeLine(head);
-			body = this.makeLine(body);
-			armL = this.makeLine(armL);
-			armL2 = this.makeLine(armL2);
-			armR = this.makeLine(armR);
-			armR2 = this.makeLine(armR2);
-			legL = this.makeLine(legL);
-			legL2 = this.makeLine(legL2);
-			legR = this.makeLine(legR);
-			legR2 = this.makeLine(legR2);
+			head = this.makeLine(pose['head']);
+			body = this.makeLine(pose['body']);
+			armL = this.makeLine(pose['armL']);
+			armL2 = this.makeLine(pose['armL2']);
+			armR = this.makeLine(pose['armR']);
+			armR2 = this.makeLine(pose['armR2']);
+			legL = this.makeLine(pose['legL']);
+			legL2 = this.makeLine(pose['legL2']);
+			legR = this.makeLine(pose['legR']);
+			legR2 = this.makeLine(pose['legR2']);
 
+			var input = this;
+			//function that moves the stickman into a predefined pose
+			this.moveIntoPose = function(pose){
+				input.canvas.add(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
 
-			this.canvas.add(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
+				var headCircle = input.makeCircle(head.get('x1'), head.get('y1'), null, head);
+				headCircle.radius = 30;
+				headCircle.fill = 'white';
 
-			var headCircle = this.makeCircle(head.get('x1'), head.get('y1'), null, head);
-			headCircle.radius = 30;
-			headCircle.fill = 'white';
-
-			this.canvas.add(
-				headCircle,
-				this.makeCircle(head.get('x2'), head.get('y2'), head, body, armL, armR),
-				this.makeCircle(body.get('x2'), body.get('y2'), body, legR, legL),
-				this.makeCircle(legR.get('x2'), legR.get('y2'), legR, legR2),
-				this.makeCircle(legR2.get('x2'), legR2.get('y2'), legR2),
-				this.makeCircle(legL.get('x2'), legL.get('y2'), legL, legL2),
-				this.makeCircle(legL2.get('x2'), legL2.get('y2'), legL2),
-				this.makeCircle(armL.get('x2'), armL.get('y2'), armL, armL2),
-				this.makeCircle(armL2.get('x2'), armL2.get('y2'), armL2),
-				this.makeCircle(armR.get('x2'), armR.get('y2'), armR, armR2),
-				this.makeCircle(armR2.get('x2'), armR2.get('y2'), armR2)
-			);
+				input.canvas.add(
+					headCircle,
+					input.makeCircle(head.get('x2'), head.get('y2'), head, body, armL, armR),
+					input.makeCircle(body.get('x2'), body.get('y2'), body, legR, legL),
+					input.makeCircle(legR.get('x2'), legR.get('y2'), legR, legR2),
+					input.makeCircle(legR2.get('x2'), legR2.get('y2'), legR2),
+					input.makeCircle(legL.get('x2'), legL.get('y2'), legL, legL2),
+					input.makeCircle(legL2.get('x2'), legL2.get('y2'), legL2),
+					input.makeCircle(armL.get('x2'), armL.get('y2'), armL, armL2),
+					input.makeCircle(armL2.get('x2'), armL2.get('y2'), armL2),
+					input.makeCircle(armR.get('x2'), armR.get('y2'), armR, armR2),
+					input.makeCircle(armR2.get('x2'), armR2.get('y2'), armR2)
+				);
+			}
+			// init the pose
+			this.moveIntoPose(head, body, armL, armL2, armR, armR2, legL, legL2, legR, legR2);
 
 			this.canvas.on('object:moving', function(e) {
 				var p = e.target;
@@ -206,18 +211,18 @@ var addRoutine = function(){
 
 		}
 		// init the input
-		this.poseInput = new this.canvasObj("poseInput",
-			[ 250, 125, 250, 175 ],
-			[ 250, 175, 250, 250 ],
-			[ 250, 175, 175, 200 ],
-			[ 175, 200, 175, 250 ],
-			[ 250, 175, 325, 200 ],
-			[ 325, 200, 325, 250 ],
-			[ 250, 250, 200, 300 ],
-			[ 200, 300, 200, 375 ],
-			[ 250, 250, 300, 300 ],
-			[ 300, 300, 300, 375 ]
-		);
+		this.poseInput = new this.canvasObj("poseInput",{
+			"head":	[ 175, 60 , 175, 100 ],
+			"body":	[ 175, 100, 175, 180 ],
+			"armL":	[ 175, 100, 125, 125 ],
+			"armL2":[ 125, 125, 100 , 180 ],
+			"armR":	[ 175, 100, 225, 125 ],
+			"armR2":[ 225, 125, 250, 180 ],
+			"legL":	[ 175, 180, 125, 220 ],
+			"legL2":[ 125, 220, 125, 300 ],
+			"legR":	[ 175, 180, 220, 220 ],
+			"legR2":[ 220, 220, 220, 300 ]
+		});
 	}
 	this.closeDialog = function(){
 		// hide the dialog
@@ -282,6 +287,8 @@ var addRoutine = function(){
 var DB = new Firebase("https://ss15.firebaseio.com/routines");
 // populate the homepage
 DB.on("value", function(snapshot) {
+	// empty the cards element
+	$('.cards').empty();
 	// this is the data object
 	var data = snapshot.val();
 	// it's an object so we need to make it iterable
