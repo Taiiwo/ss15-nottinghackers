@@ -286,6 +286,8 @@ var addRoutine = function(){
 var DB = new Firebase("https://ss15.firebaseio.com/routines");
 // populate the homepage
 DB.on("value", function(snapshot) {
+	// empty the cards element
+	$('.cards').empty();
 	// this is the data object
 	var data = snapshot.val();
 	// it's an object so we need to make it iterable
