@@ -230,6 +230,20 @@ var addRoutine = function(){
 						}
 					);
 				});
+		this.container.find(".finishButton")
+				.click(this,function(e){
+					var form=$(e.data.dialog).find(".routineElements");
+					var title=form.find(".routineName"),
+							color=form.find(".routineColor");
+					e.data.tempColorStorage=color.find(":checked");
+					color.find("paper-radio-button").each(function(index){
+						if(addRoutineInstance.tempColorStorage[0]=this){
+							addRoutineInstance.tempIndexStorage=index;
+						}
+						return false;
+					})
+					e.data.uploadRoutine(title.val(),addRoutineInstance.tempIndexStorage);
+				})
 	}
 	this.closeDialog = function(){
 		// hide the dialog
@@ -356,7 +370,7 @@ var runRoutine = function(data){
      	console.log('Rejected!', e);
 		hasVideo = false;
   	};
-	
+
   	var runBox = document.querySelector('#runRoutine');
 	var container = $('#runRoutine');
   	var video = $('#mirror');
