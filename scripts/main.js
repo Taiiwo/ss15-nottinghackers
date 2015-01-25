@@ -16,10 +16,35 @@ function Deck(id){
 		this.table.append(card);
 	}
 }
-var routines = new Deck("routine-list");
+var routines = new Deck("rotuine-list");
 routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
+
+$('.logo').click(function() {
+	runRoutine();
+})
+
+var runRoutine = function(){
+  	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+  	var errorCallback = function(e) {
+     	console.log('Rejected!', e);
+  	};
+
+  	var runBox = document.querySelector('#runRoutine')
+  	var video = document.querySelector('#mirror');
+  	if (navigator.getUserMedia) {
+    	navigator.getUserMedia({
+      		audio: false, video: true
+    	}, function(stream) {
+      		video.src = window.URL.createObjectURL(stream);
+      		runBox.open();
+    	}, errorCallback);
+  	};
+
+  	runBox.addEventListener("core-overlay-open-completed", function() {
+  		video.play();
+  	}, false)
+};
 
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');

@@ -1,6 +1,7 @@
 html,
 body {
   height: 100%;
+  font-family: 'Roboto';
 }
 
 * {  
@@ -39,4 +40,13 @@ core-icon-button {
   top: 50%;
   transform: translateY(-50%);
   padding: 7px;
+}
+
+.nameInput {
+  width: 100%;
+  display: block;
+}
+
+paper-button {
+  display: block;
 }
