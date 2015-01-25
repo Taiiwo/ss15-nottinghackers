@@ -9,14 +9,29 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.1.1/firebase.js"></script>
 	  <script src="scripts/fabric.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles/main.css" shim-shadowdom>
     <link rel="import" href="elements/elements.html">
   </head>
   <body unresolved>
     <core-header-panel>
-
       <paper-dialog id="addRoutine" backdrop transition="core-transition-top" autoCloseDisabled>
-        <paper-input></paper-input>
+        <div class="routineElements">
+        <paper-input label="Routine Name"></paper-input>
+        <paper-radio-group>
+          <paper-radio-button label="Red"></paper-radio-button>
+          <paper-radio-button label="Pink"></paper-radio-button>
+          <paper-radio-button label="Purple"></paper-radio-button>
+          <paper-radio-button label="Indigo"></paper-radio-button>
+          <paper-radio-button label="Blue"></paper-radio-button>
+          <paper-radio-button label="Cyan"></paper-radio-button>
+          <paper-radio-button label="Teal"></paper-radio-button>
+          <paper-radio-button label="Green"></paper-radio-button>
+          <paper-radio-button label="Amber"></paper-radio-button>
+          <paper-radio-button label="Yellow"></paper-radio-button>
+        </paper-radio-group>
+        </div>
+        <paper-button>Next Exercise</paper-button>
       </paper-dialog>
 
       <paper-dialog id="runRoutine" backdrop transition="core-transition-top" autoCloseDisabled> 
