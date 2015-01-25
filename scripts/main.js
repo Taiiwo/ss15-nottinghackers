@@ -48,43 +48,54 @@ var addRoutine = function(){
 					fill: '#fff',
 					stroke: '#666'
 				});
-					c.hasControls = c.hasBorders = false;
+				c.hasControls = c.hasBorders = false;
 
-					c.line1 = line1;
-					c.line2 = line2;
-					c.line3 = line3;
-					c.line4 = line4;
+				c.line1 = line1;
+				c.line2 = line2;
+				c.line3 = line3;
+				c.line4 = line4;
 
-					return c;
+				return c;
 			}
 
-			this.makeLine = function(coords) {
+			this.makeLine = function(coords, colour) {
 				return new fabric.Line(coords, {
-					fill: 'red',
-					stroke: 'red',
-					strokeWidth: 5,
+					fill: colour,
+					stroke: colour,
+					strokeWidth: 10,
 					selectable: false
 				});
 			}
+			
 
-			var line = this.makeLine([ 250, 125, 250, 175 ]),
-				line2 = this.makeLine([ 250, 175, 250, 250 ]),
-				line3 = this.makeLine([ 250, 250, 300, 350]),
-				line4 = this.makeLine([ 250, 250, 200, 350]),
-				line5 = this.makeLine([ 250, 175, 175, 225 ]),
-				line6 = this.makeLine([ 250, 175, 325, 225 ]);
+			this.head = this.makeLine([ 250, 125, 250, 175 ],'red'),
+			this.body = this.makeLine([ 250, 175, 250, 250 ],'red'),
+			this.armL = this.makeLine([ 250, 175, 175, 200 ],'red'),
+			this.armL2 = this.makeLine([ 175, 200, 175, 250 ],'red'),
+			this.armR = this.makeLine([ 250, 175, 325, 200 ],'red');
+			this.armR2 = this.makeLine([ 325, 200, 325, 250 ],'red');
+			this.legL = this.makeLine([ 250, 250, 200, 300],'red'),
+			this.legL2 = this.makeLine([ 200, 300, 200, 375],'red'),
+			this.legR = this.makeLine([ 250, 250, 300, 300],'red'),
+			this.legR2 = this.makeLine([ 300, 300, 300, 375],'red')
+				
 
-			this.canvas.add(line, line2, line3, line4, line5, line6);
-
+			this.canvas.add(this.head, this.body, this.armL, this.armL2, this.armR, this.armR2, this.legL, this.legL2, this.legR, this.legR2);
+			
 			this.canvas.add(
-				this.makeCircle(line.get('x1'), line.get('y1'), null, line),
-				this.makeCircle(line.get('x2'), line.get('y2'), line, line2, line5, line6),
-				this.makeCircle(line2.get('x2'), line2.get('y2'), line2, line3, line4),
-				this.makeCircle(line3.get('x2'), line3.get('y2'), line3),
-				this.makeCircle(line4.get('x2'), line4.get('y2'), line4),
-				this.makeCircle(line5.get('x2'), line5.get('y2'), line5),
-				this.makeCircle(line6.get('x2'), line6.get('y2'), line6)
+				this.makeCircle(this.head.get('x1'), this.head.get('y1'), null, this.head),
+				this.makeCircle(this.head.get('x2'), this.head.get('y2'), this.head, this.body, this.armL, this.armR),
+				this.makeCircle(this.body.get('x2'), this.body.get('y2'), this.body, this.legR, this.legL),
+				this.makeCircle(this.legR.get('x2'), this.legR.get('y2'), this.legR, this.legR2),
+				this.makeCircle(this.legR2.get('x2'), this.legR2.get('y2'), this.legR2),
+				this.makeCircle(this.legL.get('x2'), this.legL.get('y2'), this.legL, this.legL2),
+				this.makeCircle(this.legL2.get('x2'), this.legL2.get('y2'), this.legL2),
+				this.makeCircle(this.armL.get('x2'), this.armL.get('y2'), this.armL, this.armL2),
+				this.makeCircle(this.armL2.get('x2'), this.armL2.get('y2'), this.armL2),
+				this.makeCircle(this.armR.get('x2'), this.armR.get('y2'), this.armR, this.armR2),
+				this.makeCircle(this.armR2.get('x2'), this.armR2.get('y2'), this.armR2)
 			);
+			
 
 			this.canvas.on('object:moving', function(e) {
 				var p = e.target;
@@ -92,8 +103,73 @@ var addRoutine = function(){
 				p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
 				p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
 				p.line4 && p.line4.set({ 'x1': p.left, 'y1': p.top });
-				this.canvas.renderAll();
+				canvas.renderAll();
 			});
+			this.dumpCoords = function(){
+				console.log({
+					"head":[
+						this.head.get('x1'),
+						this.head.get('y1'),
+						this.head.get('x2'),
+						this.head.get('y2')
+					],
+					"body":[
+						this.body.get('x1'),
+						this.body.get('y1'),
+						this.body.get('x2'),
+						this.body.get('y2')
+					],
+					"armL":[
+						this.armL.get('x1'),
+						this.armL.get('y1'),
+						this.armL.get('x2'),
+						this.armL.get('y2')
+					],
+					"armL2":[
+						this.armL2.get('x1'),
+						this.armL2.get('y1'),
+						this.armL2.get('x2'),
+						this.armL2.get('y2')
+					],
+					"armR":[
+						this.armR.get('x1'),
+						this.armR.get('y1'),
+						this.armR.get('x2'),
+						this.armR.get('y2')
+					],
+					"armR2":[
+						this.armR2.get('x1'),
+						this.armR2.get('y1'),
+						this.armR2.get('x2'),
+						this.armR2.get('y2')
+					],
+					"legL":[
+						this.legL.get('x1'),
+						this.legL.get('y1'),
+						this.legL.get('x2'),
+						this.legL.get('y2')
+					],
+					"legL2":[
+						this.legL2.get('x1'),
+						this.legL2.get('y1'),
+						this.legL2.get('x2'),
+						this.legL2.get('y2')
+					],
+					"legR":[
+						this.legR.get('x1'),
+						this.legR.get('y1'),
+						this.legR.get('x2'),
+						this.legR.get('y2')
+					],
+					"legR2":[
+						this.legR2.get('x1'),
+						this.legR2.get('y1'),
+						this.legR2.get('x2'),
+						this.legR2.get('y2')
+					]
+				});
+			}
+			
 		}
 		// init the input
 		this.poseInput = new this.canvasObj("poseInput");
