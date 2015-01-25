@@ -43,8 +43,8 @@ var addRoutine = function(){
 		// make a canvas with a stick man inside
 		this.canvasObj = function(id){// this is a class that makes a stick man input
 			this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
+			var thisSubThis = this;
 			fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
-
 			this.makeCircle = function(left, top, line1, line2, line3, line4) {
 				var c = new fabric.Circle({
 					left: left,
@@ -109,7 +109,7 @@ var addRoutine = function(){
 				p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
 				p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
 				p.line4 && p.line4.set({ 'x1': p.left, 'y1': p.top });
-				canvas.renderAll();
+				thisSubThis.canvas.renderAll();
 			});
 			this.dumpCoords = function(){
 				console.log({
