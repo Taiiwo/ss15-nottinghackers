@@ -17,9 +17,6 @@ function Deck(id){
 	}
 }
 var routines = new Deck("routine-list");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
-routines.addCard("test","test","http://i.imgur.com/IUIVk80.jpg");
 
 var addRoutine = function(){
 	this.dialog = document.querySelector('html /deep/ paper-dialog');
@@ -229,13 +226,46 @@ var addRoutine = function(){
 		*/
 	}
 	this.uploadRoutine = function(title){
-		    var DB = new Firebase("https://ss15.firebaseio.com/");
+			// maybe we should calc the total routine time here?
 			DB.push({
 				"title": title,
+				"accentColour":16,
+				"likes": 0,
 				"routine": this.routine
 			});
 	}
 }
+// connect to DB
+var DB = new Firebase("https://ss15.firebaseio.com/");
+// populate the homepage
+DB.on("value", function(snapshot) {
+	// this is the data object
+	var data = snapshot.val();
+	// it's an object so we need to make it iterable
+	// this gets a list of keys for the properties
+	var keys = Object.keys(data);
+	// Then we iterate through each routine we're sent
+	for (var i = 0; i < keys.length; i++){
+		// rename this for simplicity
+		var datum = data[keys[i]];
+		var list = "";
+		var totalTime = 0;
+		// process the routine, building a short list of routine actions
+		for ( var a = 0; a < datum.routine.length; a++){
+			var routineElement = datum.routine[a];
+			if ((list.match(/\n/g) || []).length <= 3){// limmit bullet points
+				list += "<li>" + routineElement.title + "</li>\n";
+			}
+			// calculate total routine time
+			totalTime += routineElement.duration;
+		}
+		// add card to main page
+		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg")// replace image with profile picture
+		console.log("Added card: ",datum.title,list)
+	}
+}, function (errorObject) {
+	console.log("The read failed: " + errorObject.code);
+});
 // init the add routine button
 var addRoutineInstance = new addRoutine();
 // setup the handler for the button click
