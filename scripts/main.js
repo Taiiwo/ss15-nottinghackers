@@ -25,6 +25,10 @@ function Deck(id){
 	}
 }
 
+$('.enterButton').click(function() {
+	document.querySelector('html /deep/ #welcomeBox').close();
+})
+
 var routines = new Deck(".cards");
 
 var addRoutine = function(){

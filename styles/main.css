@@ -74,6 +74,10 @@ paper-toast {
   text-align: center;
 }
 
+html /deep/ .enterButton {
+  width: 100%;
+}
+
 html /deep/ .closeLightbox {
   float: right;
 }

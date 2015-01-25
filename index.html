@@ -15,6 +15,11 @@
   </head>
   <body unresolved>
     <core-header-panel>
+      <paper-dialog id="welcomeBox" opened backdrop autoCloseDisabled transition="core-transition-centre">
+        <h1>Welcome to FitLab!</h1>
+        <p>FitLab is a new way to share the fitness regimes that you love, and carry them out in a new, feature-rich way where you can see yourself exercising, as well as a demonstration that is created when a routine is created.</p>
+        <paper-button raised class="enterButton">Enter!</paper-button>
+      </paper-dialog>
       <paper-dialog id="addRoutine" backdrop transition="core-transition-top" autoCloseDisabled>
         <h1>Creating a Routine</h1>
         <core-icon-button class="closeLightbox" icon="close"></core-icon-button>
