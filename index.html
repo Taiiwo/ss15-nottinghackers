@@ -15,9 +15,14 @@
   </head>
   <body unresolved>
     <core-header-panel>
+      <paper-dialog id="welcomeBox" opened backdrop autoCloseDisabled transition="core-transition-centre">
+        <h1>Welcome to FitLab!</h1>
+        <p>FitLab is a new way to share the fitness regimes that you love, and carry them out in a new, feature-rich way where you can see yourself exercising, as well as a demonstration that is created when a routine is created.</p>
+        <paper-button raised class="enterButton">Enter!</paper-button>
+      </paper-dialog>
       <paper-dialog id="addRoutine" backdrop transition="core-transition-top" autoCloseDisabled>
         <h1>Creating a Routine</h1>
-        <paper-fab class="closeLightbox" mini icon="close"></paper-fab>
+        <core-icon-button class="closeLightbox" icon="close"></core-icon-button>
         <div class="routineElements">
         <paper-input class="routineName" label="Routine Name"></paper-input>
         <h4>Please choose an accent colour</h4>
@@ -54,16 +59,17 @@
         <video id="mirror"></video>
       </paper-dialog>
 
+      <paper-toast id="toast1" text="Please login first"></paper-toast>
+
       <paper-shadow z="2">
         <div class="toolbar">
           <div class="ribbon-logo">
             <div>FitLab</div>
           </div>
           <paper-button id="loginButton">Login</paper-button>
-          <paper-fab mini icon="add" id="addButton"></paper-fab>
+          <core-icon-button icon="add" id="addButton"></core-icon-button>
         </div>
       </paper-shadow>
-
       <div class="cards"></div>
     </core-header-panel>
 	<script src="scripts/main.js"></script>
