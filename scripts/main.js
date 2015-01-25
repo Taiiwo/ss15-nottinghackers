@@ -292,7 +292,6 @@ DB.on("value", function(snapshot) {
 		}
 		// add card to main page
 		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60)// replace image with profile picture
-		console.log("Added card: ",datum.title,list)
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
