@@ -2,7 +2,7 @@ function Deck(id){
 	this.id = id;
 	this.table = $(this.id);
 	this.cards = [];
-	this.addCard = function(title, desc, img, duration, colourIndex, id){
+	this.addCard = function(title, desc, img, duration, colourIndex){
 		var colours = [	"#f44336","#e91e63","#9c27b0","#3f51b5",// red,		pink,	purple,	indigo
 						"#2196f3","#03a9f4","#00bcd4","#4caf50",// blue,	lBlue,	cyan,	green
 						"#cddc39","#ffeb3b","#ff9800","#795548",// gold,	yellow, orange, brown
@@ -10,7 +10,7 @@ function Deck(id){
 		var colour = colours[colourIndex - 1];
 		//create card
 		var card = '\
-		<fitlab-card colour="'+ colour +'" id="'+ id +'">\
+		<fitlab-card colour="'+ colour +'">\
 			<h1>'+ title +'</h1>\
 			'+ desc +'\
 			<img class="profilePic" src="'+ img +'">\
@@ -19,8 +19,9 @@ function Deck(id){
 		// add card to list of cards
 		this.cards.push(card);
 		// add a card to the deck
-		this.table.append(card);
-		return this.table;
+		var newElement = $(card);
+		this.table.append(newElement);
+		return newElement;
 	}
 }
 
@@ -299,13 +300,46 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 				}
 			}
 		});
-		$('fitlab-card#' + keys[i] + ">core-toolbar#cardHeader").click(function() {
-			runRoutine(datum);
-	  });
+		createdNode.click(datum ,function(e) {
+			runRoutine(e.data);
+		});
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
 });
+
+var runRoutine = function(data){
+  	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+	var hasVideo = true;
+  	var errorCallback = function(e) {
+		video.remove();
+     	console.log('Rejected!', e);
+		hasVideo = false;
+  	};
+	
+  	var runBox = document.querySelector('#runRoutine');
+	var container = $('#runRoutine');
+  	var video = $('#mirror');
+  	if (navigator.getUserMedia) {
+    	navigator.getUserMedia({
+      		audio: false, video: true
+    	}, function(stream) {
+      		video.src = window.URL.createObjectURL(stream);
+    	}, errorCallback);
+	};
+	container.append(
+		$('<h1>').text(data.title)
+	);
+	runBox.open();
+  	// play video when lightbox is loaded
+  	runBox.addEventListener("core-overlay-open-completed", function() {
+		if (hasVideo){
+			video.play();
+		}
+  	}, false)
+};
+
 
 // connect to DB
 var userDB = new Firebase("https://ss15.firebaseio.com");
