@@ -295,10 +295,10 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 					this.find(".profilePic").attr("src",data.image.url);
 				}
 			}
-		})
+		});
 		$('fitlab-card#' + keys[i] + ">core-toolbar#cardHeader").click(function() {
 			runRoutine(datum);
-	  }
+	  });
 	}
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
