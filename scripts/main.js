@@ -88,8 +88,12 @@ var addRoutine = function(){
 
 			this.canvas.add(this.head, this.body, this.armL, this.armL2, this.armR, this.armR2, this.legL, this.legL2, this.legR, this.legR2);
 			
+			var headCircle = this.makeCircle(this.head.get('x1'), this.head.get('y1'), null, this.head);
+			headCircle.radius = 30;
+			headCircle.fill = 'red';
+			
 			this.canvas.add(
-				this.makeCircle(this.head.get('x1'), this.head.get('y1'), null, this.head),
+				headCircle,
 				this.makeCircle(this.head.get('x2'), this.head.get('y2'), this.head, this.body, this.armL, this.armR),
 				this.makeCircle(this.body.get('x2'), this.body.get('y2'), this.body, this.legR, this.legL),
 				this.makeCircle(this.legR.get('x2'), this.legR.get('y2'), this.legR, this.legR2),
