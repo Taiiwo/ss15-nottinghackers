@@ -2,21 +2,22 @@ function Deck(id){
 	this.id = id;
 	this.table = $(this.id);
 	this.cards = [];
-	this.addCard = function(title, desc, img){
+	this.addCard = function(title, desc, img, duration){
 		//create card
 		var card = '\
-		<routine-card>\
+		<fitlab-card>\
 			<h1>'+ title +'</h1>\
-			<li>'+ desc +'</li>\
+			'+ desc +'\
 			<img src="'+ img +'">\
-		</routine-card>';
+			<span>'+ duration +'</span>\
+		</fitlab-card>';
 		// add card to list of cards
 		this.cards.push(card);
 		// add a card to the deck
 		this.table.append(card);
 	}
 }
-var routines = new Deck("routine-list");
+var routines = new Deck("core-header-panel");
 
 var DB = new Firebase("https://ss15.firebaseio.com/");
 var addRoutine = function(){
@@ -261,7 +262,7 @@ DB.on("value", function(snapshot) {
 			totalTime += routineElement.duration;
 		}
 		// add card to main page
-		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg")// replace image with profile picture
+		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60)// replace image with profile picture
 		console.log("Added card: ",datum.title,list)
 	}
 }, function (errorObject) {
