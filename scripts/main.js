@@ -263,7 +263,12 @@ var addRoutine = function(){
 	}
 	this.uploadRoutine = function(title, colour){
 			// maybe we should calc the total routine time here?
+			if (currentUser.uid()==false){
+				//cancel uploading of routine
+				return;
+			}
 			DB.push({
+				"uid": currentUser.uid(),
 				"title": title,
 				"accentColour":colour,
 				"likes": 0,
@@ -302,19 +307,36 @@ DB.on("value", function(snapshot) {
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
 });
-var userData;
-function checkForLogin(){
-	DB.authWithOAuthPopup("google", function(error, authData){
-		if(error){
-			return false;
-		}
-		else{
-			userData=authData;
-			return true
-		}
-	})
+
+// connect to DB
+var userDB = new Firebase("https://ss15.firebaseio.com");
+var user=function(){
+	this.data={};
+};
+user.prototype.login=function(){
+	userDB.authWithOAuthPopup("google", this.completeLogin);
 }
-$("#loginButton").click(checkForLogin);
+user.prototype.completeLogin=function(error, authData){
+	if(error){
+			console.log("Login Failed",error);
+			return false;
+	}
+	else{
+		console.log("Login Successful",error);
+		this.data=authData;
+		activatePage();
+	}
+}
+user.prototype.logout=function(){
+
+}
+user.prototype.uid=function(){
+	return this.uid;
+}
+currentUser=new user();
+$("#loginButton").click(function(){
+	currentUser.login();
+});
 function activatePage(){
        //hide the page disabled overlay
        $(".disabledTillLogin").removeClass("disabledTillLogin");
