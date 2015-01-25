@@ -293,7 +293,7 @@ DB.on("value", function(snapshot) {
 				list += "<li>" + routineElement.title + "</li>\n";
 			}
 			// calculate total routine time
-			totalTime += routineElement.duration;
+			totalTime += routineElement.duration * routineElement.reps;
 		}
 		// add card to main page
 		routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour)// replace image with profile picture
