@@ -1,4 +1,4 @@
-/* function Deck(id){
+function Deck(id){
 	this.id = id;
 	this.table = $(this.id);
 	this.cards = [];
@@ -19,13 +19,6 @@
 }
 
 var routines = new Deck(".cards");
-*/
-var container = document.querySelector('.cards');
-var msnry;
-// initialize Masonry after all images have loaded
-imagesLoaded( container, function() {
-  msnry = new Masonry( container );
-});
 
 $('fitlab-card').click(function() {
 	runRoutine();
