@@ -25,10 +25,6 @@ function Deck(id){
 	}
 }
 
-$('.enterButton').click(function() {
-	document.querySelector('html /deep/ #welcomeBox').close();
-})
-
 var routines = new Deck(".cards");
 var canvasObj = function(id, pose){// this is a class that makes a stick man
 	this.canvas = this.__canvas = new fabric.Canvas(id, { selection: false });
@@ -350,7 +346,7 @@ DB.on("value", function(snapshot) {// this handler is run every time data is cha
 			totalTime += routineElement.duration * routineElement.reps;
 		}
 		// add card to main page
-		var createdNode=routines.addCard(datum.title,list,"http://i.imgur.com/IUIVk80.jpg",totalTime/60, datum.accentColour);// replace image with profile picture
+		var createdNode=routines.addCard(datum.title,list,"https://blog.uber.com/wp-content/uploads/2014/07/person-icon.png",totalTime/60, datum.accentColour);// replace image with profile picture
 		var url="https://www.googleapis.com/plus/v1/people/"+datum.user_id.replace("google:","")+"?fields=image&key=" + GOOGLE_API_KEY
 		$.ajax({
 			dataType: "json",
@@ -387,7 +383,7 @@ var runRoutine = function(data){
 
   	var runBox = document.querySelector('#runRoutine');
 	var container = $('#runRoutine');
-  	var video = $('#mirror');
+  	var video = $('html /deep/ #mirror');
   	if (navigator.getUserMedia) {
     	navigator.getUserMedia({
       		audio: false, video: true

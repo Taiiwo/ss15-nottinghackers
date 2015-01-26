@@ -1,0 +1,195 @@
+html /deep/ .enterButton {
+  width: 100%;
+}
+
+html /deep/ .closeLightbox {
+  float: right;
+}
+
+html /deep/ h1 {
+  margin: 0;
+  display: inline;
+}
+
+html /deep/ h4 {
+  margin: 0;
+}
+
+html /deep/ paper-dialog {
+  width: 700px;
+}
+
+html /deep/ .elements {
+  width: 250px;
+  float: right;
+}
+
+html /deep/ .elements * {
+  width: 100%;
+}
+
+html /deep/ .reps {
+  margin-right: 10%;
+}
+
+html /deep/ .half {
+  width: 45%;
+  margin-right: 5px;
+  float: left;
+}
+
+html /deep/ .routineName {
+  width: 100%;
+}
+
+html /deep/ .exerciseElements {
+  margin: 10px;
+}
+
+html /deep/ .nextButton,
+html /deep/ .finishButton {
+  margin-top: 15px;
+  float: right;
+}
+
+html /deep/ paper-radio-group {
+  display: block;
+  width: 500px;
+}
+
+html /deep/ paper-radio-button {
+  display: inline-block;
+  padding-left: 0px;
+}
+
+html /deep/ .blue::shadow #ink[checked] {
+  color: #2196f3;
+}
+
+html /deep/ .blue::shadow #onRadio {
+  background-color: #2196f3;
+}
+
+html /deep/ .blue[checked]::shadow #offRadio {
+  border-color: #2196f3;
+}
+
+html /deep/ .red::shadow #ink[checked] {
+  color: #f44336;
+}
+
+html /deep/ .red::shadow #onRadio {
+  background-color: #f44336;
+}
+
+html /deep/ .red[checked]::shadow #offRadio {
+  border-color: #f44336;
+}
+
+html /deep/ .pink::shadow #ink[checked] {
+  color: #e91e63;
+}
+
+html /deep/ .pink::shadow #onRadio {
+  background-color: #e91e63;
+}
+
+html /deep/ .pink[checked]::shadow #offRadio {
+  border-color: #e91e63;
+}
+
+html /deep/ .green::shadow #ink[checked] {
+  color: #4caf50;
+}
+
+html /deep/ .green::shadow #onRadio {
+  background-color: #4caf50;
+}
+
+html /deep/ .green[checked]::shadow #offRadio {
+  border-color: #4caf50;
+}
+
+html /deep/ .orange::shadow #ink[checked] {
+  color: #ff9800;
+}
+
+html /deep/ .orange::shadow #onRadio {
+  background-color: #ff9800;
+}
+
+html /deep/ .orange[checked]::shadow #offRadio {
+  border-color: #ff9800;
+}
+
+html /deep/ .teal::shadow #ink[checked] {
+  color: #009688;
+}
+
+html /deep/ .teal::shadow #onRadio {
+  background-color: #009688;
+}
+
+html /deep/ .teal[checked]::shadow #offRadio {
+  border-color: #009688;
+}
+
+html /deep/ .cyan::shadow #ink[checked] {
+  color: #00bcd4;
+}
+
+html /deep/ .cyan::shadow #onRadio {
+  background-color: #00bcd4;
+}
+
+html /deep/ .cyan[checked]::shadow #offRadio {
+  border-color: #00bcd4;
+}
+
+html /deep/ .yellow::shadow #ink[checked] {
+  color: #ffeb3b;
+}
+
+html /deep/ .yellow::shadow #onRadio {
+  background-color: #ffeb3b;
+}
+
+html /deep/ .yellow[checked]::shadow #offRadio {
+  border-color: #ffeb3b;
+}
+
+html /deep/ .amber::shadow #ink[checked] {
+  color: #ffc107;
+}
+
+html /deep/ .amber::shadow #onRadio {
+  background-color: #ffc107;
+}
+
+html /deep/ .amber[checked]::shadow #offRadio {
+  border-color: #ffc107;
+}
+
+html /deep/ .purple::shadow #ink[checked] {
+  color: #9c27b0;
+}
+
+html /deep/ .purple::shadow #onRadio {
+  background-color: #9c27b0;
+}
+
+html /deep/ .purple[checked]::shadow #offRadio {
+  border-color: #9c27b0;
+}
+
+html /deep/ .indigo::shadow #ink[checked] {
+  color: #3f51b5;
+}
+
+html /deep/ .indigo::shadow #onRadio {
+  background-color: #3f51b5;
+}
+
+html /deep/ .indigo[checked]::shadow #offRadio {
+  border-color: #3f51b5;
+}
